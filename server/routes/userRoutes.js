@@ -6,10 +6,6 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
-router.post('/signup', authController.signup);
-
-router.post('/login',authController.login);
-
 router.get('/courses',authController.verifyToken,userController.getAllCourses);
 
 router.post('/courses/:courseId',authController.verifyToken,  userController.buyCourse);

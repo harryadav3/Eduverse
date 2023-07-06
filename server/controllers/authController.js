@@ -1,13 +1,24 @@
 const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
 const bcrypt = require('bcryptjs');
+const Admin = require('../models/adminModel');
 
 
 exports.signup = async (req,res) => {
-    const user = await User.create(req.body)
+    const { role } = req.body;
+    // let user; 
+    // console.log(req.body.data);
+    // if(role === 'user'){
+    //      user = await User.create({...req.body, role:"User"});
+    // } else if (role === 'admin') {
+    //      user = await User.create({...req.body, role: "Admin"})
+        
+    // }
+   const user = await User.create({...req.body.data, role:"User"});
 
-    const token = jwt.sign({ userId: user._id.toString() }, process.env.TOP_SECRET, { expiresIn: '1h' });
-
+    console.log(user);
+    const token = await jwt.sign({ userId: user._id.toString() }, process.env.TOP_SECRET, { expiresIn: '1h' });
+    
     res.status(201).json({
         status: "succes",
         token,
@@ -16,6 +27,7 @@ exports.signup = async (req,res) => {
         }
     })
 }
+
 
 
 exports.login = async (req,res) => {
