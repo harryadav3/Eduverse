@@ -5,6 +5,7 @@ const Admin = require('../models/adminModel');
 
 
 exports.signup = async (req,res) => {
+   try {
     const { role } = req.body;
     // let user; 
     // console.log(req.body.data);
@@ -16,6 +17,7 @@ exports.signup = async (req,res) => {
     // }
    const user = await User.create({...req.body.data, role:"User"});
 
+   
     console.log(user);
     const token = await jwt.sign({ userId: user._id.toString() }, process.env.TOP_SECRET, { expiresIn: '1h' });
     
@@ -26,6 +28,9 @@ exports.signup = async (req,res) => {
             user
         }
     })
+   } catch (err) {
+        res.status(400).json({err});
+    }
 }
 
 
@@ -57,6 +62,7 @@ exports.verifyToken = (req,res,next) => {
     if(!token || !token.startsWith("Bearer")){
         return res.status(401).json({message: "please provide a token"})
     }
+
 
     token = token.split(' ')[1];
 

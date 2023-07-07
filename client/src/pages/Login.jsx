@@ -11,8 +11,7 @@ function Login() {
         setData((prev) => ({ ...prev, [name] : value}));
     }
 
-    function handleSubmit(e) {
-        e.preventDefault;
+    function handleSubmit() {
 
         authContext.dispatch({
             type: 'login',
@@ -20,14 +19,21 @@ function Login() {
                 data
             }
         })
+
+        // authContext.login({
+        //     email: data.email,
+        // password: data.password})
     }
     return (
-        <div>
+        
+        <div className="container">
+        <div className="form">
+            <h3>Already Have Account</h3>
             <input type="email" placeholder="email" name="email" value={data.email} onChange={handleChange}/>
             <input type="password" placeholder="password" name="password" value={data.password} onChange={handleChange}/>
 
-            <button onSubmit={handleSubmit}>Login</button>
-
+            <button onClick={handleSubmit}>Login</button>
+        </div>
         </div>
     )
 }

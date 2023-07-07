@@ -7,6 +7,7 @@ const baseurl = "http://localhost:3001/api/v1"
 const AuthContext = createContext();
 
 const initialState = {
+    name: '',
    userRole: '',
    isAuthenticated: false,
 };
@@ -18,8 +19,11 @@ const authReducer = async (state, action) => {
                 console.log(action.payload);
                 const response = await axios.post('http://localhost:3001/api/v1/signup',action.payload);
                 const data = response.json();
-
-                return { ...state, userRole: data.Role, isAuthenticated: true}
+                const {token} = response.data;
+                localStorage.setItem('jwttoken',token);
+                console.log(response);
+                console.log(response.data.data.name);
+                return { name: response.data.data.name, userRole: data.Role, isAuthenticated: true}
 
             } catch (err) {
                 console.log(err)
@@ -27,11 +31,13 @@ const authReducer = async (state, action) => {
             }
         case 'login' : 
             try {
+                console.log(action.payload.data);
+                const response = await axios.post('http://localhost:3001/api/v1/login', action.payload.data);
+                console.log(response);
+                console.log(response.data.data.user.name);
+                 return { ...state, name: response.data.data.name,userRole: response.data.data.Role, isAuthenticated: true}
 
-                const resonse = await axios.post(`${BASE_URL}/login`, action.payload);
-                const data = response.json();
-                return { ...state, userRole: data.Role, isAuthenticated: true}
-
+            
             } catch (err) {
                 console.log(err);
             }
@@ -43,10 +49,10 @@ const authReducer = async (state, action) => {
 
 
 const AuthProvider = ({children}) => {
-    const [ {userRole,isAuthenticated}, dispatch] = useReducer(authReducer, initialState);
+    const [ {name,userRole,isAuthenticated}, dispatch] = useReducer(authReducer, initialState);
 
     return (
-        <AuthContext.Provider value={{ userRole,isAuthenticated, dispatch}}>
+        <AuthContext.Provider value={{name, userRole,isAuthenticated, dispatch}}>
             {children}
         </AuthContext.Provider>
     )

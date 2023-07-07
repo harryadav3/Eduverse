@@ -1,11 +1,18 @@
 import { Link, NavLink } from "react-router-dom";
-import styles from"./Header.module.css";
 import logo from './../assets/logo.svg'
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+
 function Header() {
-  return (
-    <header>
+
+  const {name,isAuthenticated,userRole, dispatch} =  useContext(AuthContext); 
+  //const {name,isAuthenticated}  = state || {};
+{  console.log(name)
+}  
+return (
+    <header >
       <div >
-        <img className={styles.logo} src={logo} alt="logo.img" />
+        <img className="logo" src={logo} alt="logo.img" />
       </div>
 
       <nav>
@@ -18,10 +25,21 @@ function Header() {
           </li>
         </ul>
 
-      <div className="status">
-        <Link to="login"><button>Login</button></Link>
-        <Link to="signup"><button>Signup</button></Link>
-      </div>
+      <div >
+
+        { 
+        isAuthenticated ? (<>
+          <div> <span>{name}</span></div>
+        </>) :  <>  
+          <Link className="btn" to="login"><span>Login</span></Link>
+          <Link to="signup"><span className="signup">Sign Up</span></Link>
+          </>
+         
+        }
+        
+        </div>
+
+        
       </nav>
 
     </header>

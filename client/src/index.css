@@ -4,15 +4,15 @@
 :root {
   font-family: "Inter",  sans-serif;
   line-height: 1.5;
-  font-weight: 400;
 
   color: rgba(255, 255, 255, 0.87);
 
   --color-primary: #7E9CD8;
 
   --color-secondary:#C2D0EA;
-  --color-tertiary:#132C6C;
+  --color-tertiary:#2440A6;
 
+  --color-text: #2440A6;
   --color-highlight: #26D8D8;
   --color-effect: #3B5FDF;
   --color-underline: #293054;
@@ -34,8 +34,244 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  color: var(--color-primary);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.6;
+  width: 100%;
+  background-color: var(--color-primary);
 }
 
+
+
+
+
+/* HEADER */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4rem;
+  height:5rem;
+  background-color: var(--color-secondary);
+}
+
+nav {
+  display: flex;
+  
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+li {
+  margin: 0 1rem;
+}
+li a {
+  color: var(--color-text);
+  font-size: 1.1rem;
+}
+
+a {
+  text-decoration : none;
+  
+}
+
+a:active {
+  color: inherit;
+}
+
+
+div a span {
+  margin : 0 0.5rem ;
+    background-color: var(--color-tertiary);
+    color: white;
+
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 3px solid #132C6C;
+}
+
+.signup {
+  background-color: white;
+  color: #000;
+  font-weight: bold;
+  padding: 0.5rem 0.5rem;
+}
+.logo {
+  height: 4rem;
+  width: 15rem;
+}
+
+/* Homepage */
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-grow: 1;
+  padding: 4rem 8rem 
+}
+
+.heroimg {
+  width: 100% ;
+  height: 100%;
+}
+
+.text {
+  max-width: 50%;
+  padding-right: 6rem;
+}
+
+.heading {
+  font-size: 3rem;
+  line-height: 1.3;
+  color: var(--color-text);
+  font-weight: 900;
+}
+.heading span {
+  color: var(--color-highlight);
+}
+.sub-heading {
+  margin-top: 1.5rem;
+  letter-spacing: 2px;
+}
+
+.btn-imp{
+  display: inline-block;
+  margin : 2rem 0rem ;
+  background-color: var(--color-tertiary);
+  color: white;
+
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 3px solid #132C6C;
+}
+
+/* Courses */ 
+
+.courses {
+  padding: 4rem 8rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+
+/* Eacth course */
+
+.course {
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+  max-width: 15rem;
+  
+  color : rgba(0, 0,0, 0.8);
+}
+.details {
+  position: relative;
+  padding : 0rem 0.8rem;
+  justify-content: space-between;
+}
+.title {
+  font-weight: 900;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 30px;
+  white-space: nowrap;
+
+}
+.instructor {
+  color: grey;
+}
+.course-img {
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+height: 10rem;
+width: 15rem;
+}
+
+.extra {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  padding: 0 1rem 0.3rem 0;
+}
+
+.main-info{
+  bottom: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2erm;
+  margin-bottom: 10px;
+}
+.main-info span {
+  background-color: var(--color-effect);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+/* Sign up login up */
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.form {
+  border-radius: 20px;
+  color: rgb(75, 75, 85);
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 2rem 1rem;
+  min-height: 20rem;
+  justify-content: space-around;
+
+}
+
+input {
+  height: 2.2rem;
+  padding: 10px;
+  width: 90%;
+  margin: .5rem .5rem ;
+  border-radius: 10px;
+  border: 2px solid grey;
+  outline: none;
+}
+.radiobtn {
+    display: flex ;
+    flex-direction: row;
+  }
+  .radiobtn label{
+    display: flex ;
+    flex-direction: row;
+    padding: 5px 5px 0 5px;
+    justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+input[type="radio"] {
+  width: 1rem;
+  margin-right: 4px;
+}
+
+button {
+  background-color: var(--color-tertiary);
+  color: white;
+  border: none;
+  padding: .5rem 2.5rem ;
+  border-radius: 10px;
+  margin-top: 5px;
+  font-size: 22px;
+}

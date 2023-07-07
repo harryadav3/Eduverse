@@ -29,7 +29,11 @@ function SignUp() {
 
 
     return (
-        <div>
+
+        <div className="container">
+        <div className="form">
+
+            <h3>Create An Account</h3>
 
             <input type='text' name="name" placeholder="name" value={data.name} onChange={handleChange}/>
             
@@ -39,15 +43,16 @@ function SignUp() {
             
             <input type='password' name="passwordConfirm" placeholder="Confirm Password" value={data.passwordConfirm} onChange={handleChange}/>
 
-            <div>
+            {/* <div className="radiobtn">
                 <label>Choose your role </label>
 
-                <label><input type="radio" name="role" value="user" checked={data.role === 'user'} onChange={handleChange}/>User</label>
+                <label><input type="radio" name="role" value="user" checked={data.role === 'user'} onChange={handleChange}/> User</label>
 
-                <label><input type="radio" name="role" value="admin" checked={data.role === 'admin'} onChange={handleChange}/>Admin</label>
-            </div>
+                <label><input type="radio" name="role" value="admin" checked={data.role === 'admin'} onChange={handleChange}/> Admin</label>
+            </div> */}
             <button onClick={handleSubmit}>Signup</button>
 
+        </div>
         </div>
     )
 }
