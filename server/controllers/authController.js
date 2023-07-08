@@ -6,26 +6,31 @@ const Admin = require('../models/adminModel');
 
 exports.signup = async (req,res) => {
    try {
+    console.log(req.body);
+ 
     const { role } = req.body;
-    // let user; 
-    // console.log(req.body.data);
-    // if(role === 'user'){
-    //      user = await User.create({...req.body, role:"User"});
-    // } else if (role === 'admin') {
-    //      user = await User.create({...req.body, role: "Admin"})
-        
-    // }
-   const user = await User.create({...req.body.data, role:"User"});
-
-   
-    console.log(user);
-    const token = await jwt.sign({ userId: user._id.toString() }, process.env.TOP_SECRET, { expiresIn: '1h' });
     
+    let user; 
+    user = await Admin.create({...req.body, role: "Admin"})
+    if(role === 'User'){
+         user = await User.create({...req.body, role:"User"});
+    } else if (role === 'Admin') {
+        console.log("insdie admin");
+         user = await Admin.create({...req.body, role: "Admin"})
+    } else {
+        throw new Error('Invalid role');
+      }
+  
+    const token =  jwt.sign({ userId: user._id.toString() }, process.env.TOP_SECRET, { expiresIn: '1h' });
+    
+
+    const userdata = { _id: user._id, email: user.email, role: user.role, name: user.name}
+
     res.status(201).json({
         status: "succes",
         token,
         data: {
-            user
+            userdata
         }
     })
    } catch (err) {
@@ -46,7 +51,7 @@ exports.login = async (req,res) => {
     const user = await User.findOne({email}).select("+password")
     console.log(user);
     
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    const passwordMatch =  bcrypt.compare(password, user.password);
 
     if(!user || !passwordMatch){
         return res.status(401).json({message: "Incorrect email or password"})
@@ -54,8 +59,11 @@ exports.login = async (req,res) => {
 
     const token = jwt.sign({ userId: user._id.toString() }, process.env.TOP_SECRET, {expiresIn: '1h'});
 
-    res.status(200).json({ message : "success", token, data : { user }})
+    const userdata = { _id: user._id, email: user.email, role: user.role, name: user.name}
+
+    res.status(200).json({ message : "success", token, data : { userdata }})
 }
+
 
 exports.verifyToken = (req,res,next) => {
     let token = req.headers.authorization;

@@ -9,6 +9,7 @@ import CreateCourse from './pages/CreateCourse';
 import Header from './components/Header';
 import {AuthProvider} from './context/AuthContext';
 import { CourseProvider } from './context/CourseContext';
+import BuyedCourses from './pages/BuyedCourses';
 
 function App() {
 
@@ -27,7 +28,8 @@ function App() {
             <Route path="createcourse" element={<CreateCourse/>} />
             <Route path="login" element={<Login/>}/>
             <Route path="signup" element={<SignUp/>}/>
-
+            <Route path="buyedcourse" element={<BuyedCourses/>}/>
+            
           </Routes>
       </BrowserRouter>
       </CourseProvider>

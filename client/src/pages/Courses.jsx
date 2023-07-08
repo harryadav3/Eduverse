@@ -1,27 +1,23 @@
 import { useContext, useEffect } from "react"
 import { CourseContext } from "../context/CourseContext"
-import data from './../data/courses'
+//import data from './../data/courses'
 import Course from "../components/Course";
 
 function Courses() {
 
 
-    console.log(data);
-    const courseContext = useContext(CourseContext);
+    const  { getCourses, state} = useContext(CourseContext);
 
+    const {courses} = state || [];
+    const data = courses.courses || []; 
 
-    // useEffect( () => {
-    //     console.log("inside effect");
-    //     courseContext.dispatch({
-    //         type: 'courses',
-    //         payload: []
-    //     })
-    // },[])
+    useEffect( () => {
+        getCourses();
+    },[])
 
     return (
         <div className="courses">
-        {console.log(data)}
-        {data.map((item,id) => <Course title={item.title} 
+        {data.map((item,id) => <Course title={item.title} id={item._id}
         instructor={item.instructor} price={item.price} imageLink={item.imageLink} rating={item.rating} duration={item.duration} key={id}/>)}
         </div>
     )

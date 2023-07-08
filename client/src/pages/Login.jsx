@@ -1,28 +1,35 @@
 import { useContext, useState } from "react"
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
 
     const [ data , setData ] = useState({ email:'', password:''});
     const authContext = useContext(AuthContext);
+    const navigate = useNavigate();
 
     function handleChange(e) {
         const { name, value} = e.target;
         setData((prev) => ({ ...prev, [name] : value}));
+
+       
     }
 
     function handleSubmit() {
 
-        authContext.dispatch({
-            type: 'login',
-            payload: {
-                data
-            }
-        })
+        // authContext.dispatch({
+        //     type: 'login',
+        //     payload: {
+        //         data
+        //     }
+        // })
 
-        // authContext.login({
-        //     email: data.email,
-        // password: data.password})
+        authContext.login({
+            email: data.email,
+        password: data.password}).then(() => {
+            console.log("succes fom login");
+        })
+        navigate("/courses")
     }
     return (
         

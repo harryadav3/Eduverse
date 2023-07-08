@@ -6,11 +6,14 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
-router.get('/courses',authController.verifyToken,userController.getAllCourses);
+router.get('/courses',userController.getAllCourses);
 
-router.post('/courses/:courseId',authController.verifyToken,  userController.buyCourse);
+router.get('/courses/:courseId',authController.verifyToken,  userController.buyCourse);
 
-router.get('/buyedcourse',authController.verifyToken, userController.getBuyedCourse);
+router.get('/buyedcourse/:id',authController.verifyToken, userController.getBuyedCourse);
 
 module.exports = router;
+
+
+
 

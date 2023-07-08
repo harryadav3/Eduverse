@@ -23,11 +23,9 @@ exports.getAllCourses =  async (req,res) => {
 
 exports.buyCourse = async  (req,res) => {
     try {
-        
         const cid = req.params.courseId;
         const userId = req.headers.userid
         
-
         const user = await User.findById(userId);
         console.log(user.purchasedCourses);
         
@@ -40,17 +38,16 @@ exports.buyCourse = async  (req,res) => {
         })
 
     } catch (err) {
-        res.status(400).json({status: "fail" , message: err})
+        res.status(400).json({status: "failjoker" , message: err})
     }
 }
 
 exports.getBuyedCourse =  async (req,res) => {
     try { 
         const user = await User.findById(req.params.id);
-
-        const allCourses = user.purchasedCourses.map((id) => Course.findById(id));
-
-
+        
+        const allCourses = await Promise.all(user.purchasedCourses.map((id) => Course.findById(id)));
+       
         res.status(200).json({
             status: "success",
             data: {
@@ -58,6 +55,15 @@ exports.getBuyedCourse =  async (req,res) => {
             }
         })
     } catch (err) {
-        res.status(400).json({status: "fail" , message: err})
+        res.status(400).json({status: "faildsfdsfdsfsd" , message: err})
     }
 }
+// exports.createCourse = async (req,res) => {
+//     try {
+        
+
+//     } catch (err) {
+//         console.log(err);
+//     }
+// })
+// }

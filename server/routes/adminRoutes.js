@@ -4,9 +4,9 @@ const router = express.Router();
 const adminController = require('./../controllers/adminController');
 const authController = require('./../controllers/authController');
 
-router.post('/createCourse',adminController.createCourse);
+router.post('/createcourse',adminController.createCourse);
 
-router.post('/updateCourse/:courseId',adminController.updateCourse);
+router.patch('/updatecourse/:courseId',adminController.updateCourse);
 
 router.get('/courses', adminController.getAllCourses);
 

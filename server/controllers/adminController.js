@@ -22,8 +22,24 @@ exports.createCourse = async (req,res) => {
 
 exports.updateCourse = async (req,res) => {
     try{
+        const { courseId } = req.params;
         
-    } catch (err) {
+        const updatedCourse = await Course.findByIdAndUpdate(
+          courseId,
+          req.body,
+          { new: true }
+        );
+    
+        if (!updatedCourse) { return res.status(404).json({status: 'fail', message: 'Course not found', });
+        }
+    
+        res.status(200).json({
+          status: 'success',
+          data: {
+            course: updatedCourse,
+          },
+        });
+      } catch (err) {
         res.status(400).json({
             status : "fail",
             message: err

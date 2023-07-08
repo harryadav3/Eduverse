@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-
+const bcrypt = require('bcryptjs');
+const validator = require('validator');
 
 const adminSchema = new mongoose.Schema({
     name : {
@@ -10,7 +11,6 @@ const adminSchema = new mongoose.Schema({
         type: String,
        required: true,
         unique: true,
-        lowercase: true,
     },
 
     password: {
@@ -32,10 +32,7 @@ const adminSchema = new mongoose.Schema({
             message: 'Passwords are not the same!'
         },
     },
-    purchasedCourses: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Course',
-    }]
+  
 })
 
 adminSchema.pre('save', async function(next) {

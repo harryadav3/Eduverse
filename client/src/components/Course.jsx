@@ -1,10 +1,20 @@
-function Course({id,imageLink,title, instructor, duration, description,price, rating}) {
+import { useContext } from "react";
+import { CourseContext } from "../context/CourseContext";
+import { AuthContext } from "../context/AuthContext";
+
+function Course({id, imageLink,title, instructor, duration, description,price, rating}) {
 
     const colors = [ '#F99090', "#ABDEB6", '#C0C891','#BCCEE4' ]
     let cardColor;
-        Array.from({ length: 8 }, (_, index) => {
+        Array.from({ length: 4 }, (_, index) => {
         const randomColorIndex = Math.floor(Math.random() * colors.length);
          cardColor = colors[randomColorIndex]; })
+
+            const { buyCourse} = useContext(CourseContext);
+            const { state } = useContext(AuthContext);
+            function handlechange() {
+                buyCourse(id, state.user._id);
+            }
     return (
         <div className="course" style={{backgroundColor : cardColor}}>
             <div>
@@ -19,7 +29,7 @@ function Course({id,imageLink,title, instructor, duration, description,price, ra
                 </div>
                 <div className="main-info">
                     <h3>${price}</h3>
-                    <span>Buy Now</span>
+                    <span onClick={handlechange}>Buy Now</span>
                 </div>
             </div>
         </div>
