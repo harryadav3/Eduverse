@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 import BASE_URL from "../hooks/useBaseUrl";
 import axios from 'axios';
 
-const baseurl = "http://localhost:3001/api/v1";
+const baseurl = "https://server-course-online-app.vercel.app/api/v1";
 
 const AuthContext = createContext();
 

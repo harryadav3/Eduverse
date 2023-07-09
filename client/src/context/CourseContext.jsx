@@ -5,7 +5,7 @@ import { createContext, useReducer } from 'react';
 
 
 const CourseContext = createContext();
-const baseurl = "http://localhost:3001/api/v1"
+const baseurl = "https://server-course-online-app.vercel.app/api/v1"
 
 const initialState = {
     
