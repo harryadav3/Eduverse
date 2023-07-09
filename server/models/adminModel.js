@@ -1,21 +1,17 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const validator = require('validator');
 
 const adminSchema = new mongoose.Schema({
     name : {
         type: String,
-        required: true,
     },
     email : {
         type: String,
-       required: true,
-        unique: true,
+        lowercase: true,
     },
 
     password: {
         type: String,
-        required: [true, 'Please provide a password'],
         minlength: 8,
         select: false
     },
@@ -38,7 +34,7 @@ const adminSchema = new mongoose.Schema({
 adminSchema.pre('save', async function(next) {
     if (!this.isModified('password')) return next();
   
-    this.password = await bcrypt.hash(this.password, 12);
+    this.password = bcrypt.hash(this.password, 12);
     this.passwordConfirm = undefined; // Skip validation for passwordConfirm field if it's undefined
     next();
   });

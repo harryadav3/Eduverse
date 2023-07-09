@@ -1,18 +1,20 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from './../assets/logo.svg'
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import account from '../assets/account.svg'
+
 function Header() {
 
   const {state} =  useContext(AuthContext); 
   const authContext = useContext(AuthContext);
   const {user,isAuthenticated}  = state ;
         //const name = user.name;
-
+  const navigate = useNavigate();
 
         function logoutall() {
           authContext.logout();
+          navigate("/");
         }
 return (
     <header >

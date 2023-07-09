@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
 const bcrypt = require('bcryptjs');
-const Admin = require('../models/adminModel');
+const Admin = require('./../models/adminModel');
 
 
 exports.signup = async (req,res) => {
@@ -11,12 +11,15 @@ exports.signup = async (req,res) => {
     const { role } = req.body;
     
     let user; 
-    user = await Admin.create({...req.body, role: "Admin"})
+    console.log("inside signup");
+    
     if(role === 'User'){
+        console.log("inside signup user");
          user = await User.create({...req.body, role:"User"});
     } else if (role === 'Admin') {
         console.log("insdie admin");
-         user = await Admin.create({...req.body, role: "Admin"})
+        user = await Admin.create({...req.body, role: "Admin"})
+        console.log("after admin");
     } else {
         throw new Error('Invalid role');
       }
@@ -52,6 +55,7 @@ exports.login = async (req,res) => {
     console.log(user);
     
     const passwordMatch =  bcrypt.compare(password, user.password);
+
 
     if(!user || !passwordMatch){
         return res.status(401).json({message: "Incorrect email or password"})
