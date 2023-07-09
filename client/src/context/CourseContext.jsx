@@ -30,7 +30,8 @@ const courseReducer = (state, action) => {
         return { ...state };
   
       case 'buyedcourse':
-        return { ...state, buyedcourse: action.payload };
+        console.log(action.payload);
+        return { ...state, buyedcourse: [{...action.payload}] };
   
       default:
         throw new Error('Action type is not valid');
@@ -89,9 +90,10 @@ const courseReducer = (state, action) => {
                 Authorization: `Bearer ${jwtToken}`,
             }
         });
-        
+        console.log(res);
         const { allCourses } = res.data.data;
-  
+        console.log(allCourses);
+
         dispatch({ type: 'buyedcourse', payload: allCourses });
       } catch (err) {
         console.log(err);
