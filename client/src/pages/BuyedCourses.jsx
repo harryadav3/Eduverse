@@ -7,8 +7,7 @@ function BuyedCourses() {
     const { state: authState } = useContext(AuthContext);
     const { state: courseState, getbuyedCourses } = useContext(CourseContext);
     const id = authState.user._id;
-    
-    const buyedcourse = courseState.buyedcourse || [];
+    const buyedcourse = courseState.buyedcourse ;
     
     useEffect( () => {
         getbuyedCourses(id);

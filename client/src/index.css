@@ -179,6 +179,7 @@ a:active {
 .courses {
   padding: 4rem 8rem;
   display: flex;
+  gap: 1rem;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }

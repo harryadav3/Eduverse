@@ -31,7 +31,7 @@ const courseReducer = (state, action) => {
   
       case 'buyedcourse':
         console.log(action.payload);
-        return { ...state, buyedcourse: [{...action.payload}] };
+        return { ...state, buyedcourse: action.payload };
   
       default:
         throw new Error('Action type is not valid');
