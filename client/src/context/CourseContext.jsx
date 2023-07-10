@@ -5,7 +5,7 @@ import { createContext, useReducer } from 'react';
 
 
 const CourseContext = createContext();
-const baseurl = "https://server-course-online-app.vercel.app/api/v1"
+const baseurl = "https://course-selling-web-app-wkck.vercel.app/api/v1"
 
 const initialState = {
     
