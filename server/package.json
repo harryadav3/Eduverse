@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "click" : "nodemon server.js",
-    "build": "",
-    "debug": "ndb server.js"
+    "debug": "ndb server.js",
+    "vercel-build": "echo hello"
   },
   "keywords": [],
   "author": "",
