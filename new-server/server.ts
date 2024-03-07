@@ -2,7 +2,7 @@ import express from "express";
 import { Pool } from "pg";
 import app from "./src/app";
 
-import dotenv from "dotenv";
+import   dotenv from "dotenv";
 
 dotenv.config({ path: "./local.env" });
 
