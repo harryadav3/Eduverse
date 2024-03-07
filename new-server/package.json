@@ -1,0 +1,24 @@
+{
+  "name": "eduverse",
+  "version": "1.0.0",
+  "description": "a course selling web app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "click": "nodemon server.js",
+    "debug": "ndb server.js"
+  },
+  "author": "harryadav3",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/pg": "^8.11.2",
+    "typescript": "^5.4.2"
+  }
+}
