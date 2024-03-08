@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
-import { Lead } from '../models/lead'; // Assuming you have a 'Lead' model
+import Lead from '../models/leadModel';
 
-// Course registration API (A user can apply for a course by sharing their name, email, phone number, and LinkedIn profile)
 export const registerForCourse = async (req: Request, res: Response) => {
   try {
     const { name, email, phoneNumber, linkedInProfile, courseId } = req.body;
@@ -11,28 +10,30 @@ export const registerForCourse = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Failed to register for course' });
   }
 };
-
-// Lead update API (Instructor can change the status of the lead (Accept / Reject / Waitlist))
 export const updateLeadStatus = async (req: Request, res: Response) => {
-  try {
-    const { leadId } = req.params;
-    const { status } = req.body;
-    const lead = await Lead.findByPk(leadId);
+    try {
+        const { leadId } = req.params;
+        const { status } = req.body;
 
-    if (!lead) {
-      return res.status(404).json({ error: 'Lead not found' });
+        const [numberOfAffectedRows, affectedRows] = await Lead.update(
+            { status: status },
+            {
+                where: { id: leadId },
+                returning: true,
+            }
+        );
+
+        if (numberOfAffectedRows === 0) {
+            return res.status(404).json({ error: 'Lead not found' });
+        }
+
+        const updatedLead = affectedRows[0];
+        res.status(200).json(updatedLead);
+    } catch (error) {
+        res.status(500).json({ status: 'Failed to fetch course', errorMessage: error });
     }
-
-    lead.status = status;
-    await lead.save();
-
-    res.status(200).json(lead);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to update lead status' });
-  }
 };
 
-// Lead search API (Instructor can search leads by name or email)
 export const searchLeads = async (req: Request, res: Response) => {
   try {
     const { name, email } = req.query;
@@ -44,6 +45,6 @@ export const searchLeads = async (req: Request, res: Response) => {
     });
     res.status(200).json(leads);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to search leads' });
+    res.status(500).json({ status: 'Failed to fetch course', errorMessage: error });
   }
 };

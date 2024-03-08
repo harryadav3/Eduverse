@@ -1,20 +1,18 @@
-
 import express from 'express';
-import { InstructorController } from '../controllers/instructorController';
+import * as instructorController from '../controllers/instructorController';
 
 const router = express.Router();
 
-const instructorController = new InstructorController();
-
+// Get all instructors
 router.get('/', instructorController.getAllInstructors);
 
+// Get an instructor by ID
 router.get('/:id', instructorController.getInstructorById);
 
+// Create a new instructor
 router.post('/', instructorController.createInstructor);
 
+// Update an existing instructor
 router.put('/:id', instructorController.updateInstructor);
 
-
 export default router;
-
-
