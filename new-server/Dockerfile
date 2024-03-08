@@ -18,7 +18,7 @@ COPY tsconfig.json .
 RUN npm install -g typescript
 
 # Compile TypeScript code to JavaScript
-RUN tsc
+# RUN tsc
 
 # Expose the port the app will run on
 EXPOSE 3000
