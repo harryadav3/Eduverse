@@ -7,12 +7,12 @@ const router = express.Router();
 router.get('/', courseController.getAllCourses);
 
 // Get a course by ID
-router.get('/:id', courseController.getCourseById);
+router.get('/:courseId', courseController.getCourseById);
 
 // Create a new course
-router.post('/', courseController.createCourse);
+router.post('/create', courseController.createCourse);
 
 // Update an existing course
-router.put('/:id', courseController.updateCourseDetails);
+router.put('/:courseId', courseController.updateCourseDetails);
 
 export default router;

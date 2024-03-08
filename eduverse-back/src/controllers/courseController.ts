@@ -43,8 +43,8 @@ export const getAllCourses = async (req: Request, res: Response) => {
 
 export const getCourseById = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
-        const course = await Course.findByPk(id);
+        const { courseId } = req.params;
+        const course = await Course.findByPk(courseId);
 
         if (!course) {
             return res.status(404).json({ status: 'Course not found' });
@@ -73,7 +73,7 @@ export const updateCourseDetails = async (req: Request, res: Response) => {
     try {
         const { courseId } = req.params;
         const { name, maxSeats, startDate } = req.body;
-
+        
         const [numberOfAffectedRows, affectedRows] = await Course.update(
             { name, maxSeats, startDate },
             {

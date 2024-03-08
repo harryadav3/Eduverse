@@ -4,6 +4,9 @@ import * as leadController from '../controllers/leadController';
 const router = express.Router();
 
 // Register for a course
+
+router.get('/', leadController.getAllLeads);
+
 router.post('/register', leadController.registerForCourse);
 
 // Update lead status
