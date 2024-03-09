@@ -17,59 +17,48 @@ class Lead extends Model {
   }
 }
 
-Lead.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    phoneNumber: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    linkedInProfile: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    status: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    courseId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Course',
-        key: 'id',
-      },
+Lead.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true,
     },
   },
-  {
-    sequelize,
-    modelName: 'Lead',
-    hooks: {
-      beforeCreate: async (lead) => {
-        if (lead.password) {
-          const salt = await bcrypt.genSalt(10);
-          lead.password = await bcrypt.hash(lead.password, salt);
-        }
-      },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  imageUrl: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  status: {
+    type: DataTypes.ENUM('Accept', 'Reject', 'Waitlist'),
+    allowNull: false,
+    defaultValue: 'Waitlist'
+  },
+}, {
+  sequelize,
+  modelName: 'Lead',
+  hooks: {
+    beforeCreate: async (lead) => {
+      if (lead.password) {
+        const salt = await bcrypt.genSalt(10);
+        lead.password = await bcrypt.hash(lead.password, salt);
+      }
     },
-  }
-);
+  },
+});
 
 export default Lead;

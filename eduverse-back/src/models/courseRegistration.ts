@@ -24,10 +24,10 @@ CourseRegistration.init({
         allowNull: false,
     },
     status: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: 'Pending',
-    },
+    type: DataTypes.ENUM('Accept', 'Reject', 'Waitlist'),
+    allowNull: false,
+    defaultValue: 'Waitlist'
+  },
     registrationDate: {
         type: DataTypes.DATE,
         allowNull: false,

@@ -14,43 +14,49 @@ class Instructor extends Model {
   }
 }
 
-Instructor.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    bio: {
-      type: DataTypes.TEXT,
-      allowNull: false,
+
+
+Instructor.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true,
     },
   },
-  {
-    sequelize,
-    modelName: 'Instructor',
-    hooks: {
-      beforeCreate: async (instructor) => {
-        if (instructor.password) {
-          const salt = await bcrypt.genSalt(10);
-          instructor.password = await bcrypt.hash(instructor.password, salt);
-        }
-      },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  bio: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  imageUrl: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+}, {
+  sequelize,
+  modelName: 'Instructor',
+  hooks: {
+    beforeCreate: async (instructor) => {
+      if (instructor.password) {
+        const salt = await bcrypt.genSalt(10);
+        instructor.password = await bcrypt.hash(instructor.password, salt);
+      }
     },
-  }
-);
+  },
+});
 
 export default Instructor;

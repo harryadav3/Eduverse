@@ -7,7 +7,6 @@ class Comment extends Model {
     public comment!: string;
     public leadId!: number;
 }
-
 Comment.init({
     id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -19,6 +18,10 @@ Comment.init({
         allowNull: false,
     },
     leadId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+    },
+    instructorId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
     },

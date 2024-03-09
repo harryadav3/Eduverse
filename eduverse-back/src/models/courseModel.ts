@@ -8,6 +8,9 @@ class Course extends Model {
     public maxSeats!: number;
     public startDate!: Date;
     public instructorId!: number;
+    public duration!: number; // in hours
+    public category!: string;
+    public imageUrl!: string;
 }
 
 Course.init({
@@ -31,6 +34,18 @@ Course.init({
     instructorId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
+    },
+    duration: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+    },
+    category: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    imageUrl: {
+        type: DataTypes.STRING,
+        allowNull: true,
     },
 }, {
     tableName: 'Course',
