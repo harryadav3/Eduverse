@@ -2,6 +2,7 @@ import Instructor from './models/instructorModel';
 import Course from './models/courseModel';
 import Lead from './models/leadModel';
 import Comment from './models/commentModel';
+import CourseRegistration from './models/courseRegistration';
 
 
 // export const syncModels = async () => {
@@ -19,6 +20,7 @@ export const syncModels = async () => {
     try {
         await Instructor.sync();
         await Course.sync();
+        await CourseRegistration.sync();
         await Lead.sync();
         await Comment.sync();
         console.log('Models synced successfully!');

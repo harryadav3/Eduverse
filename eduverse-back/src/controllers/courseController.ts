@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import  Course  from '../models/courseModel';
-
+import CourseRegistration  from './../models/courseRegistration';
+import Lead from '../models/leadModel';
 
 // ...
 
@@ -20,26 +21,31 @@ export const getAllCourses = async (req: Request, res: Response) => {
 
 
 
-// export const updateCourseDetails = async (req: Request, res: Response) => {
-//     try {
-//         const { courseId } = req.params;
-//         const { name, maxSeats, startDate } = req.body;
-//         const course = await Course.findByPk(courseId);
+export const registerForCourse = async (req: Request, res: Response) => {
+    try {
+        const { name, email, phoneNumber, linkedInProfile, courseId, status } = req.body;
 
-//         if (!course) {
-//             return res.status(404).json({ error: 'Course not found' });
-//         }
+        const lead = await Lead.create({
+            name,
+            email,
+            phoneNumber,
+            linkedInProfile,
+            courseId,
+            status,
+        });
 
-//         course.name = name;
-//         course.maxSeats = maxSeats;
-//         course.startDate = startDate;
-//         await course.save();
+        const courseRegistration = await CourseRegistration.create({
+            leadId: lead.get('id'), // Access the 'id' property using the get() method
+            courseId,
+            status,
+        });
 
-//         res.status(200).json(course);
-//     } catch (error) {
-//         res.status(500).json({ error: 'Failed to update course details' });
-//     }
-// };
+        res.status(201).json({ lead, courseRegistration });
+    } catch (error) {
+        res.status(500).json({ status: 'Failed to register for course', errorMessage: error });
+    }
+};
+// 
 
 export const getCourseById = async (req: Request, res: Response) => {
     try {
@@ -56,7 +62,6 @@ export const getCourseById = async (req: Request, res: Response) => {
     }
 };
 
-// ...
 
 export const createCourse = async (req: Request, res: Response) => {
     try {
