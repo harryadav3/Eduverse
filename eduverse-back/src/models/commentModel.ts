@@ -1,10 +1,16 @@
-import { DataTypes } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config';
 import Lead from './leadModel';
 
-const Comment = sequelize.define('Comment', {
+class Comment extends Model {
+    public id!: number;
+    public comment!: string;
+    public leadId!: number;
+}
+
+Comment.init({
     id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
         primaryKey: true,
     },
@@ -13,15 +19,12 @@ const Comment = sequelize.define('Comment', {
         allowNull: false,
     },
     leadId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
-        references: {
-            model: Lead,
-            key: 'id',
-        },
     },
 }, {
-    timestamps: true,
+    tableName: 'Comment',
+    sequelize,
 });
 
 Lead.hasMany(Comment, { foreignKey: 'leadId' });

@@ -1,13 +1,26 @@
-import { DataTypes } from 'sequelize';
-import  sequelize  from '../config';
+import { Model, DataTypes } from 'sequelize';
+import sequelize from '../config';
 
-const CourseRegistration = sequelize.define('CourseRegistration', {
+class CourseRegistration extends Model {
+    public id!: number;
+    public courseId!: number;
+    public leadId!: number;
+    public status!: string;
+    public registrationDate!: Date;
+}
+
+CourseRegistration.init({
+    id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        autoIncrement: true,
+        primaryKey: true,
+    },
     courseId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
     },
     leadId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
     },
     status: {
@@ -20,6 +33,9 @@ const CourseRegistration = sequelize.define('CourseRegistration', {
         allowNull: false,
         defaultValue: DataTypes.NOW,
     },
+}, {
+    tableName: 'CourseRegistration',
+    sequelize,
 });
 
 export default CourseRegistration;

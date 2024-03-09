@@ -1,8 +1,10 @@
 import express from 'express';
 import * as courseController from '../controllers/courseController';
+import { authenticate } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
+router.use(authenticate)
 // Get all courses
 router.get('/', courseController.getAllCourses);
 

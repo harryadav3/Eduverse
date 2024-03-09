@@ -1,10 +1,18 @@
-import { DataTypes } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config';
 import Instructor from './instructorModel';
 
-const Course = sequelize.define('Course', {
+class Course extends Model {
+    public id!: number;
+    public name!: string;
+    public maxSeats!: number;
+    public startDate!: Date;
+    public instructorId!: number;
+}
+
+Course.init({
     id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
         primaryKey: true,
     },
@@ -13,7 +21,7 @@ const Course = sequelize.define('Course', {
         allowNull: false,
     },
     maxSeats: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
     },
     startDate: {
@@ -21,15 +29,12 @@ const Course = sequelize.define('Course', {
         allowNull: false,
     },
     instructorId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
-        references: {
-            model: Instructor,
-            key: 'id',
-        },
     },
 }, {
-    timestamps: true,
+    tableName: 'Course',
+    sequelize,
 });
 
 Instructor.hasMany(Course, { foreignKey: 'instructorId' });

@@ -6,6 +6,7 @@ import instructorRoutes from "./routes/instructorRoutes";
 import courseRoutes from "./routes/courseRoutes";
 import leadRoutes from "./routes/leadRoutes";
 import commentRoutes from "./routes/commentRoutes";
+import authRoutes from "./routes/authRoutes";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(cors());
 
+app.use('/api/auth/', authRoutes);
 app.use('/api/instructors', instructorRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/leads', leadRoutes);

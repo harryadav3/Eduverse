@@ -80,6 +80,17 @@ export const updateLeadStatus = async (req: Request, res: Response) => {
     }
 };
 
+/// create lead
+export const createLead = async (req: Request, res: Response) => {
+    try {
+        const { name, email, phoneNumber, linkedInProfile, status, courseId, password } = req.body;
+        const lead = await Lead.create({ name, email, phoneNumber, linkedInProfile, status, courseId, password });
+        res.status(201).json(lead);
+    } catch (error) {
+        res.status(500).json({ status: 'Failed to create lead', errorMessage: error });
+    }
+};
+
 export const searchLeads = async (req: Request, res: Response) => {
         try {
             const { name, email } = req.query;
