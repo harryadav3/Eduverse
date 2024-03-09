@@ -6,10 +6,12 @@ class Comment extends Model {
     public id!: number;
     public comment!: string;
     public leadId!: number;
+    public instructorId!: number;
 }
+
 Comment.init({
     id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
@@ -18,11 +20,11 @@ Comment.init({
         allowNull: false,
     },
     leadId: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     instructorId: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
 }, {

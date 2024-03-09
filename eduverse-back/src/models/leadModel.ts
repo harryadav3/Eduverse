@@ -49,8 +49,8 @@ Lead.init({
     defaultValue: 'Waitlist'
   },
 }, {
+  tableName: 'Lead',
   sequelize,
-  modelName: 'Lead',
   hooks: {
     beforeCreate: async (lead) => {
       if (lead.password) {

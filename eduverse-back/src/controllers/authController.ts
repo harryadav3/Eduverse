@@ -13,11 +13,10 @@ const jwtSecret = process.env.JWT_SECRET || 'secret-key';
 
 export const registerInstructor = async (req: Request, res: Response) => {
   try {
-    const { name, email, password, bio } = req.body;
-    const instructor = await Instructor.create({ name, email, password, bio });
+    const { name, email, password, bio, imageUrl } = req.body;
+    const instructor = await Instructor.create({ name, email, password, bio, imageUrl });
     const token = jwt.sign({ userId: instructor.id, role: 'instructor' }, jwtSecret, { expiresIn: '1h' });
-    res.status(201).json({ status : "succesful",
-    instructor, token });
+    res.status(201).json({ status : "successful", instructor, token });
   } catch (error) {
     res.status(500).json({ status: 'error', message: 'Failed to register instructor', errorMessage : error });
   }
@@ -25,15 +24,15 @@ export const registerInstructor = async (req: Request, res: Response) => {
 
 export const registerLead = async (req: Request, res: Response) => {
   try {
-    const { name, email, password, phoneNumber, linkedInProfile, status, courseId } = req.body;
-    const lead = await Lead.create({ name, email, password, phoneNumber, linkedInProfile, status, courseId });
+    const { name, email, password, phoneNumber, imageUrl, status = 'Waitlist' } = req.body;
+
+    const lead = await Lead.create({ name, email, password, phoneNumber, imageUrl, status });
     const token = jwt.sign({ userId: lead.id, role: 'lead' }, jwtSecret, { expiresIn: '1h' });
-    res.status(201).json({ lead, token });
+    res.status(201).json({ status : "successful", lead, token });
   } catch (error) {
     res.status(500).json({ status: 'error', message: 'Failed to register lead', errorMessage : error });
   }
 };
-
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password, role } = req.body;

@@ -1,7 +1,10 @@
 import express from 'express';
 import * as commentController from '../controllers/commentController';
+import { authenticate } from '../middleware/authMiddleware';
 
 const router = express.Router();
+
+router.use(authenticate)
 
 router.get("/", commentController.getAllComments);
 

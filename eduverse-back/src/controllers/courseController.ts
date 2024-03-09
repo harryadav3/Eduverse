@@ -36,12 +36,10 @@ export const getCourseById = async (req: Request, res: Response) => {
     }
 };
 
-
 export const createCourse = async (req: Request, res: Response) => {
     try {
-        const { name, maxSeats, startDate, instructorId } = req.body;
-        console.log(name, maxSeats, startDate, instructorId);
-        const course = await Course.create({ name, maxSeats, startDate, instructorId });
+        const { name, maxSeats, startDate, instructorId, duration, category, imageUrl } = req.body;
+        const course = await Course.create({ name, maxSeats, startDate, instructorId, duration, category, imageUrl });
         res.status(201).json(course);
     } catch (error) {
         res.status(500).json({ status: 'Failed to create course', errorMessage: error });
@@ -51,10 +49,10 @@ export const createCourse = async (req: Request, res: Response) => {
 export const updateCourseDetails = async (req: Request, res: Response) => {
     try {
         const { courseId } = req.params;
-        const { name, maxSeats, startDate } = req.body;
+        const { name, maxSeats, startDate, instructorId, duration, category, imageUrl } = req.body;
         
         const [numberOfAffectedRows, affectedRows] = await Course.update(
-            { name, maxSeats, startDate },
+            { name, maxSeats, startDate, instructorId, duration, category, imageUrl },
             {
                 where: { id: courseId },
                 returning: true,

@@ -15,7 +15,7 @@ class Course extends Model {
 
 Course.init({
     id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
@@ -24,7 +24,7 @@ Course.init({
         allowNull: false,
     },
     maxSeats: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     startDate: {
@@ -32,11 +32,11 @@ Course.init({
         allowNull: false,
     },
     instructorId: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     duration: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     category: {

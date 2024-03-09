@@ -4,10 +4,10 @@ import { authenticate } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
-router.use(authenticate)
 // Get all courses
 router.get('/', courseController.getAllCourses);
 
+router.use(authenticate)
 // Get a course by ID
 router.get('/:courseId', courseController.getCourseById);
 

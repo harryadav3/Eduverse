@@ -19,6 +19,7 @@ router.get('/:leadId', leadController.getAllRegisterCourse);
 // Update lead status
 router.put('/:leadId', leadController.updateLeadStatus);
 
+
 // Search leads
 router.get('/search', leadController.searchLeads);
 

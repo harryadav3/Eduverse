@@ -47,8 +47,8 @@ Instructor.init({
     allowNull: true,
   },
 }, {
+  tableName: 'Instructor',
   sequelize,
-  modelName: 'Instructor',
   hooks: {
     beforeCreate: async (instructor) => {
       if (instructor.password) {

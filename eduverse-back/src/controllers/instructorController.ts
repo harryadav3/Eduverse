@@ -27,16 +27,16 @@ export const getInstructorById = async (req: Request, res: Response) => {
     }
 };
 
-// Create instructor
-export const createInstructor = async (req: Request, res: Response) => {
-    try {
-        const { name, email, bio } = req.body;
-        const instructor = await Instructor.create({ name, email, bio });
-        res.status(201).json(instructor);
-    } catch (error) {
-        res.status(500).json({ status: 'Failed to create instructor', errorMessage: error });
-    }
-};
+// // Create instructor
+// export const createInstructor = async (req: Request, res: Response) => {
+//     try {
+//         const { name, email, bio } = req.body;
+//         const instructor = await Instructor.create({ name, email, bio });
+//         res.status(201).json(instructor);
+//     } catch (error) {
+//         res.status(500).json({ status: 'Failed to create instructor', errorMessage: error });
+//     }
+// };
 
 // Update instructor
 export const updateInstructor = async (req: Request, res: Response) => {
