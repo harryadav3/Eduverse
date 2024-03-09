@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
 import  Course  from '../models/courseModel';
-import CourseRegistration  from './../models/courseRegistration';
-import Lead from '../models/leadModel';
 
 // ...
 
@@ -21,30 +19,6 @@ export const getAllCourses = async (req: Request, res: Response) => {
 
 
 
-export const registerForCourse = async (req: Request, res: Response) => {
-    try {
-        const { name, email, phoneNumber, linkedInProfile, courseId, status } = req.body;
-
-        const lead = await Lead.create({
-            name,
-            email,
-            phoneNumber,
-            linkedInProfile,
-            courseId,
-            status,
-        });
-
-        const courseRegistration = await CourseRegistration.create({
-            leadId: lead.get('id'), // Access the 'id' property using the get() method
-            courseId,
-            status,
-        });
-
-        res.status(201).json({ lead, courseRegistration });
-    } catch (error) {
-        res.status(500).json({ status: 'Failed to register for course', errorMessage: error });
-    }
-};
 // 
 
 export const getCourseById = async (req: Request, res: Response) => {

@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import Lead from '../models/leadModel';
 import { Op } from 'sequelize';
-
+import Course from '../models/courseModel';
+import CourseRegistration from "./../models/courseRegistration";
 
 
 export const getAllLeads = async (req: Request, res: Response) => {
@@ -13,26 +14,46 @@ export const getAllLeads = async (req: Request, res: Response) => {
     }
 };
 
+
 export const registerForCourse = async (req: Request, res: Response) => {
     try {
-      const { name, email, phoneNumber, linkedInProfile, courseId, status } = req.body;
+        const { leadId, courseId, status } = req.body;
 
-  
-      const lead = await Lead.create({
-        name,
-        email,
-        phoneNumber,
-        linkedInProfile,
-        courseId,
-        status,
-      });
-  
-      res.status(201).json(lead);
+        const lead = await Lead.findByPk(leadId);
+        if (!lead) {
+            return res.status(404).json({ error: 'Lead not found' });
+        }
+
+        const course = await Course.findByPk(courseId);
+        if (!course) {
+            return res.status(404).json({ error: 'Course not found' });
+        }
+
+        const courseRegistration = await CourseRegistration.create({
+            leadId,
+            courseId,
+            status,
+        });
+
+        res.status(201).json({ lead, courseRegistration });
     } catch (error) {
-      res.status(500).json({ status: 'Failed to fetch course', errorMessage: error });
+        res
+            .status(500)
+            .json({ status: "Failed to register for course", errorMessage: error });
     }
-  };
+};
 
+export const getAllRegisterCourse = async (req: Request, res: Response) => {
+    try {
+        const { leadId } = req.params;
+        const registerCourse = await CourseRegistration.findAll({
+            where: { leadId },
+        });
+        res.status(200).json(registerCourse);
+    } catch (error) {
+        res.status(500).json({ status: "Failed to fetch register course", errorMessage: error });
+    }
+}
 
 
 export const updateLeadStatus = async (req: Request, res: Response) => {
@@ -75,3 +96,5 @@ export const searchLeads = async (req: Request, res: Response) => {
             res.status(500).json({ status: 'Failed to fetch leads', errorMessage: error });
         }
     };
+
+
