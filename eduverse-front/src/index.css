@@ -40,5 +40,5 @@ body, html {
 }
 
 .container {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 flex-col items-center justify-center lg:px-40
+  @apply max-w-7xl mx-auto px-4 sm:px-6 flex-col items-center justify-center lg:px-40 
 }

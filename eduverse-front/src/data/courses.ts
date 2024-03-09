@@ -1,0 +1,68 @@
+export const courses = [
+    {
+        id: 1,
+        title: "Introduction to Programming",
+        instructor: "John Smith",
+        duration: "4 weeks",
+        price: 49.99,
+        image: `../assets/course1.png`,
+    },
+    {
+        id: 2,
+        title: "Web Development Fundamentals",
+        instructor: "Jane Doe",
+        duration: "6 weeks",
+        price: 79.99,
+        image: `../assets/course2.png`,
+    },
+    {
+        id: 3,
+        title: "Data Science for Beginners",
+        instructor: "David Johnson",
+        duration: "8 weeks",
+        price: 99.99,
+        image: `../assets/course3.png`,
+    },
+    {
+        id: 4,
+        title: "Mobile App Development",
+        instructor: "Sarah Thompson",
+        duration: "10 weeks",
+        price: 129.99,
+        image: `../assets/course4.png`,
+    },
+    {
+        id: 5,
+        title: "Machine Learning Basics",
+        instructor: "Michael Brown",
+        duration: "6 weeks",
+        price: 89.99,
+        image: `../assets/course5.png`,
+    },
+    {
+        id: 6,
+        title: "Full Stack Web Development",
+        instructor: "Alex Johnson",
+        duration: "12 weeks",
+        price: 149.99,
+        image: `../assets/course6.png`,
+    },
+    {
+        id: 7,
+        title: "Python for Data Analysis",
+        instructor: "Emily Wilson",
+        duration: "8 weeks",
+        price: 99.99,
+        image: `../assets/course7.png`,
+    },
+    {
+        id: 8,
+        title: "Cybersecurity Fundamentals",
+        instructor: "Daniel Smith",
+        duration: "6 weeks",
+        price: 79.99,
+        image: `../assets/course8.png`,
+    },
+    // Add more courses here...
+];
+
