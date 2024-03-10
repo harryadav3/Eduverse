@@ -31,13 +31,13 @@ return (
             </Link>
             <Link
                 to="/login"
-                className=" text-white bg-secondary px-4 py-2 rounded-md hover:bg-purple-700"
+                className=" text-white bg-secondary px-6 py-2 rounded-md hover:bg-purple-700"
             >
                 Login
             </Link>
             <Link
                 to="/signup"
-                className=" font-bold border-4 border-secondary text-white px-3 py-1 rounded-md hover:bg-secondary hover:text-white"
+                className=" font-bold border-4 border-tertiary text-white px-3 py-1   rounded-md hover:bg-secondary hover:text-white"
             >
                 Signup
             </Link>

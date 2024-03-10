@@ -42,3 +42,7 @@ body, html {
 .container {
   @apply max-w-7xl mx-auto px-4 sm:px-6 flex-col items-center justify-center lg:px-40 
 }
+
+.form-input {
+  @apply appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm my-3
+}
