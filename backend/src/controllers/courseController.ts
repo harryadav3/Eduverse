@@ -17,8 +17,6 @@ export const getAllCourses = async (req: Request, res: Response) => {
 
 
 
-
-
 // 
 
 export const getCourseById = async (req: Request, res: Response) => {
