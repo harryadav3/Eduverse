@@ -1,5 +1,4 @@
 
-import React from 'react'
 import { RiBook2Line, RiComputerLine, RiMusic2Line } from 'react-icons/ri'
 import { categories } from './../data/categories'
 

@@ -6,6 +6,7 @@
     "configurations": [
         
         {
+            "hello": "vscode",
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",

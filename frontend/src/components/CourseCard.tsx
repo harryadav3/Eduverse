@@ -1,5 +1,5 @@
 import React from "react";
-import { FaRegClock, FaUserCircle, FaStarHalfAlt } from 'react-icons/fa'; // Import the icons
+import {  FaStarHalfAlt } from 'react-icons/fa'; // Import the icons
 import imageAdd from "./../assets/course2.png";
 import insADD from "./../assets/ins1.png";
 import { useAuthStore } from "../store/store";

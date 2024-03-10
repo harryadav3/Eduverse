@@ -1,5 +1,4 @@
-import React from 'react';
-import { useAuthStore } from '../store/store'; // replace with your actual path
+// import { useAuthStore } from '../store/store'; // replace with your actual path
 
 const Profile = () => {
     // const { user } = useAuthStore((state) => state.user  );

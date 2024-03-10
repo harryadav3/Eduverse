@@ -1,4 +1,3 @@
-import React from "react";
 import { FaBullhorn, FaBriefcase, FaLightbulb } from "react-icons/fa";
 import statisticsImage from "./../assets/statistics.svg";
 

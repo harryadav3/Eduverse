@@ -1,6 +1,3 @@
-import React from "react";
-import instructorImage from "./../assets/student.svg";
-import studentImage from "./../assets/instructor.svg"; // replace with actual path
 import companiesImage from "./../assets/companies.svg"; // replace with actual path
 const Hero = () => {
 return (
