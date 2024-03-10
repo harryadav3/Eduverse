@@ -15,9 +15,6 @@ const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)());
-app.use("/", (req, res, next) => {
-    res.json({ message: "Welcome to the backend!" });
-});
 app.use('/api/auth/', authRoutes_1.default);
 app.use('/api/instructors', instructorRoutes_1.default);
 app.use('/api/courses', courseRoutes_1.default);
