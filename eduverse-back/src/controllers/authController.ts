@@ -10,13 +10,14 @@ dotenv.config({ path: __dirname + '/../local.env' });
 
 
 const jwtSecret = process.env.JWT_SECRET || 'secret-key';
-
 export const registerInstructor = async (req: Request, res: Response) => {
   try {
     const { name, email, password, bio, imageUrl } = req.body;
     const instructor = await Instructor.create({ name, email, password, bio, imageUrl });
-    const token = jwt.sign({ userId: instructor.id, role: 'instructor' }, jwtSecret, { expiresIn: '1h' });
-    res.status(201).json({ status : "successful", instructor, token });
+    const token = jwt.sign({ userId: instructor.id, role: 'instructor' }, jwtSecret, { expiresIn: '30d' });
+    res.status(201).json({ status : "successful", user: {
+      name,email, role: 'instructor'
+    }, token });
   } catch (error) {
     res.status(500).json({ status: 'error', message: 'Failed to register instructor', errorMessage : error });
   }
@@ -27,12 +28,13 @@ export const registerLead = async (req: Request, res: Response) => {
     const { name, email, password, phoneNumber, imageUrl, status = 'Waitlist' } = req.body;
 
     const lead = await Lead.create({ name, email, password, phoneNumber, imageUrl, status });
-    const token = jwt.sign({ userId: lead.id, role: 'lead' }, jwtSecret, { expiresIn: '1h' });
-    res.status(201).json({ status : "successful", lead, token });
+    const token = jwt.sign({ userId: lead.id, role: 'lead' }, jwtSecret, { expiresIn: '30d' });
+    res.status(201).json({ status: "successful", user: { name, email, role: 'student' }, token });
   } catch (error) {
     res.status(500).json({ status: 'error', message: 'Failed to register lead', errorMessage : error });
   }
 };
+
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password, role } = req.body;
@@ -54,12 +56,18 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).json({ error: 'Invalid password' });
     }
 
-    const token = jwt.sign({ userId: user.id, role }, jwtSecret, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id, role }, jwtSecret, { expiresIn: '30d' });
     res.status(200).json({ 
       status : "Succuccesful login",
-      Jwttoke : token });
+      user: {
+        name: user.name,
+        email: user.email,
+        status: (user as Lead).status,
+        role: role
+      },
+      token  
+    });
   } catch (error) {
-    res.status(500).json({ status: 'Failed to authenticate user' ,
-  errorMesage: error});
+    res.status(500).json({ status: 'Failed to authenticate user' , errorMesage: error});
   }
 };

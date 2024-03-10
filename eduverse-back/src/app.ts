@@ -1,6 +1,6 @@
 import bodyParser from "body-parser";
 import express, { Request, Response, NextFunction } from "express";
-// import cors from "cors";
+import cors from "cors";
 
 import instructorRoutes from "./routes/instructorRoutes";
 import courseRoutes from "./routes/courseRoutes";
@@ -12,13 +12,15 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(cors());
+app.use(cors());
 
 app.use('/api/auth/', authRoutes);
 app.use('/api/instructors', instructorRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/leads', leadRoutes);
 app.use('/api/comments', commentRoutes);
+
+
 
 // Define a simple route to return "Hello, world!"
 app.get("/", (req: Request, res: Response) => {

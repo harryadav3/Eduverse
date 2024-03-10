@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { useAuthStore } from '../store/store';
 
 type FormData = {
     role: string;
@@ -14,9 +15,11 @@ type FormData = {
 const Signup = () => { 
     const { register, handleSubmit, watch } = useForm<FormData>();
     const role = watch('role', 'student');
+    const signup = useAuthStore((state) => state.signup);
 
     const onSubmit = (data: FormData) => {
-        console.log(data);
+        signup({ ...data, id: 0 }); // Pass a second argument to the signup function
+        console.log("inside tthe sinpu form teh ", data);
     };
 
     return (
@@ -59,7 +62,7 @@ const Signup = () => {
                             />
                         </div>
                         <div className="mb-4">
-                            <label htmlFor="email-address" className="sr-only">
+                            <label htmlFor="email" className="sr-only">
                                 Email address
                             </label>
                             <input

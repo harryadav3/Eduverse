@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import BuyedCourses from './pages/BuyedCourses';
-import Courses from './pages/Courses';
+import CoursesList from './pages/CoursesList';
 import CreateCourse from './pages/CreateCourse';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/buyed-courses" element={<BuyedCourses />} />
-        <Route path="/courses" element={<Courses />} />
+        <Route path="/courses" element={<CoursesList />} />
         <Route path="/create-course" element={<CreateCourse />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

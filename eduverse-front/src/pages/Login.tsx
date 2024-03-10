@@ -1,7 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-
+import { useAuthStore } from "../store/store";
+import { useNavigate } from "react-router-dom";
 type FormData = {
   name: string;
   email: string;
@@ -10,11 +11,16 @@ type FormData = {
 
 const Login = () => {
   const { register, handleSubmit, watch } = useForm<FormData>();
-  const role = watch("role", "student");
+    const login  = useAuthStore((state) => state.login);
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-  };
+const onSubmit = (data: FormData) => {
+    login({ ...data, id: 0 }, ""); // Pass a second argument to the login function
+    console.log("From login : " , data);
+    if (false) {
+        const navigate = useNavigate();
+        navigate("/home");
+    }
+};
 
 return (
     <div className="min-h-screen flex  justify-center bg-gray-50 py-10 px-4 sm:px-6 lg:px-6">
@@ -28,42 +34,44 @@ return (
                 <input type="hidden" name="remember" value="true" />
                 <div className="rounded-md shadow-sm -space-y-px">
                     <div className="mb-4">
-                        <label htmlFor="name" className="sr-only">
-                            Name
+                        <label htmlFor="email" className="sr-only">
+                            Email
                         </label>
                         <input
-                            id="name"
-                            type="text"
-                            required
-                            className="form-input"
-                            placeholder="Name"
-                            {...register("name")}
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="email-address" className="sr-only">
-                            Email address
-                        </label>
-                        <input
-                            id="email-address"
+                            id="email"
                             type="email"
                             autoComplete="email"
                             required
                             className="form-input"
-                            placeholder="Email address"
+                            placeholder="Email"
                             {...register("email")}
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="password" className="sr-only">
+                            Password
+                        </label>
+                        <input
+                            id="password"
+                            type="password"
+                            autoComplete="current-password"
+                            required
+                            className="form-input"
+                            placeholder="Password"
+                            {...register("password")}
                         />
                     </div>
                 </div>
 
                 <div className="flex items-center justify-around mb-4 ">
                     <div className="flex items-center ">
+                        
                         <input
                             id="student"
                             type="radio"
                             className="h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                            value="student"
-                            checked={role === "student"}
+                            value="lead"
+                            // checked={role === "lead"}
                             {...register("role")}
                         />
                         <label
@@ -79,7 +87,7 @@ return (
                             type="radio"
                             className="h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                             value="instructor"
-                            checked={role === "instructor"}
+                            // checked={role === "instructor"}
                             {...register("role")}
                         />
                         <label
@@ -110,7 +118,6 @@ return (
             </div>
         </div>
     </div>
-);
-};
+)};
 
 export default Login;

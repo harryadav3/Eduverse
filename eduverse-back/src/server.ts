@@ -12,7 +12,8 @@ const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
   connectionString,
 });
-  
+
+
 // Connect to the PostgreSQL database
 pool
   .connect()
