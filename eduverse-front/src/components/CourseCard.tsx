@@ -2,6 +2,8 @@ import React from "react";
 import { FaRegClock, FaUserCircle, FaStarHalfAlt } from 'react-icons/fa'; // Import the icons
 import imageAdd from "./../assets/course2.png";
 import insADD from "./../assets/ins1.png";
+import { useAuthStore } from "../store/store";
+import api from "../store/api";
 interface CourseCardProps {
   course: {
     id: number;
@@ -18,7 +20,23 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
 
   // {console.log(course)}
+  const { user } = useAuthStore((state) => state);
   const { id, name,  maxSeats = 25, instructorId, duration, category = 'Programming', imageUrl } = course;
+
+  const enrollCourse = async () => {
+    try {
+      console.log("the data for the user ", user?.id, id)
+      const response = await api.post('/leads/register/course', {
+        leadId: user?.id, // Add null check for user
+        courseId: id,
+      });
+
+      console.log(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
 
   return (
 
@@ -52,7 +70,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           <div className="flex items-center">
             <span className="text-2xl font-bold">$ 99.99</span>
           </div>
-          <button className="bg-primary hover:bg-tertiary text-white px-4 py-2 rounded flex items-center">
+          <button onClick={enrollCourse} className="bg-primary hover:bg-tertiary text-white px-4 py-2 rounded flex items-center">
             Enroll Now
           </button>
         </div>

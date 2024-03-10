@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/store';
-
+import { useNavigate } from 'react-router-dom';
 type FormData = {
     role: string;
     name: string;
@@ -15,12 +15,23 @@ type FormData = {
 const Signup = () => { 
     const { register, handleSubmit, watch } = useForm<FormData>();
     const role = watch('role', 'student');
-    const signup = useAuthStore((state) => state.signup);
+    const { signup, isLoggedIn } = useAuthStore((state) => ({
+        signup: state.signup,
+        isLoggedIn: state.isLoggedIn,
+    }));
+    const navigate = useNavigate();
 
     const onSubmit = (data: FormData) => {
         signup({ ...data, id: 0 }); // Pass a second argument to the signup function
         console.log("inside tthe sinpu form teh ", data);
     };
+
+    useEffect(() => {
+        if(isLoggedIn) {
+            navigate('/');
+        }
+    }
+    ,[isLoggedIn]);
 
     return (
         <div className="min-h-screen flex  justify-center bg-gray-50 py-4 px-4 sm:px-6 lg:px-8">
@@ -119,7 +130,7 @@ const Signup = () => {
                     </div>
 
                     <div className="mb-4">
-                        <button
+                       <button
                             type="submit"
                             className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >

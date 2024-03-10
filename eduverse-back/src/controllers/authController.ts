@@ -16,7 +16,7 @@ export const registerInstructor = async (req: Request, res: Response) => {
     const instructor = await Instructor.create({ name, email, password, bio, imageUrl });
     const token = jwt.sign({ userId: instructor.id, role: 'instructor' }, jwtSecret, { expiresIn: '30d' });
     res.status(201).json({ status : "successful", user: {
-      name,email, role: 'instructor'
+      name,email, imageUrl,  role: 'instructor'
     }, token });
   } catch (error) {
     res.status(500).json({ status: 'error', message: 'Failed to register instructor', errorMessage : error });
@@ -29,7 +29,7 @@ export const registerLead = async (req: Request, res: Response) => {
 
     const lead = await Lead.create({ name, email, password, phoneNumber, imageUrl, status });
     const token = jwt.sign({ userId: lead.id, role: 'lead' }, jwtSecret, { expiresIn: '30d' });
-    res.status(201).json({ status: "successful", user: { name, email, role: 'student' }, token });
+    res.status(201).json({ status: "successful", user: {   name, email, imageUrl,  role: 'lead' }, token });
   } catch (error) {
     res.status(500).json({ status: 'error', message: 'Failed to register lead', errorMessage : error });
   }
@@ -60,9 +60,11 @@ export const login = async (req: Request, res: Response) => {
     res.status(200).json({ 
       status : "Succuccesful login",
       user: {
+        id: user.id,
         name: user.name,
         email: user.email,
-        status: (user as Lead).status,
+        // imageUrl: user.imageUrl,
+         status: (user as Lead).status,
         role: role
       },
       token  

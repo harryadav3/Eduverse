@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/store";
@@ -7,20 +7,27 @@ type FormData = {
   name: string;
   email: string;
   role: string;
+  password: string;
 };
 
 const Login = () => {
   const { register, handleSubmit, watch } = useForm<FormData>();
-    const login  = useAuthStore((state) => state.login);
+    // const login  = useAuthStore((state) => state.login);
+    const navigate = useNavigate();
+    const { login , isLoggedIn } = useAuthStore((state) => ({
+        login: state.login, isLoggedIn: state.isLoggedIn 
+    }));
 
 const onSubmit = (data: FormData) => {
     login({ ...data, id: 0 }, ""); // Pass a second argument to the login function
     console.log("From login : " , data);
-    if (false) {
-        const navigate = useNavigate();
-        navigate("/home");
-    }
 };
+
+useEffect (() => {
+    if(isLoggedIn) {
+        navigate("/");
+    }
+},[isLoggedIn]);
 
 return (
     <div className="min-h-screen flex  justify-center bg-gray-50 py-10 px-4 sm:px-6 lg:px-6">

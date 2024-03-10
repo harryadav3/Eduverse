@@ -10,6 +10,7 @@ interface AuthState {
     id: number;
     email: string;
     name: string;
+    imageUrl: string;
     role: string;
   } | null;
 
@@ -89,17 +90,21 @@ interface Course {
 
 interface CourseState {
   courses: Course[];
+  buyedCourses: Course[];
   setCourses: (courses: Course[]) => void;
+  setBuyedCourses: (courses: Course[]) => void;
 }
 
 
 export const useCourseStore = create<CourseState>((set) => ({
   courses: [],
+  buyedCourses:[],
   setCourses: (courses) => set({ courses }),
+  setBuyedCourses : (buyedCourses) => set({buyedCourses})
 }));
 
 
 
-
+/*Buyed Course  */
 
 
