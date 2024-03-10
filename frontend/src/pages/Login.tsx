@@ -11,7 +11,7 @@ type FormData = {
 };
 
 const Login = () => {
-  const { register, handleSubmit, watch } = useForm<FormData>();
+  const { register, handleSubmit } = useForm<FormData>();
     // const login  = useAuthStore((state) => state.login);
     const navigate = useNavigate();
     const { login , isLoggedIn } = useAuthStore((state) => ({

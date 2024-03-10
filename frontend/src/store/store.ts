@@ -1,7 +1,7 @@
 import {create} from 'zustand'
 import api from './api';
-import { useNavigate } from 'react-router-dom';
-  import axios from 'axios';
+// import { useNavigate } from 'react-router-dom';
+//   import axios from 'axios';
 
 
   // const navigate = useNavigate();

@@ -34,6 +34,7 @@ const BuyedCourses = () => {
             <div><h1 className='text-3xl font-bold text-gray-700 text-center my-6'>{user?.name}, Courses </h1></div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
                 {buyedCourses.map((course) => (
+                    //@ts-ignore
                     <CourseCard key={course.id} course={course} />
                 ))}
             </div>

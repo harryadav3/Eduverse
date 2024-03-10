@@ -21,8 +21,11 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
   // {console.log(course)}
   const { user } = useAuthStore((state) => state);
-  const { id, name,  maxSeats = 25, instructorId, duration, category = 'Programming', imageUrl } = course;
+  // const { id, name,  maxSeats = 25, instructorId, duration, category = 'Programming', imageUrl } = course;
 
+  const { id, name,  maxSeats = 25, instructorId, duration, category = 'Programming' } = course;
+  
+  
   const enrollCourse = async () => {
     try {
       console.log("the data for the user ", user?.id, id)
