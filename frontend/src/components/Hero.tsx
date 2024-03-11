@@ -1,5 +1,10 @@
+import { useAuthStore } from "../store/store";
 import companiesImage from "./../assets/companies.svg"; // replace with actual path
+import { Link } from 'react-router-dom'
 const Hero = () => {
+
+const { isLoggedIn } = useAuthStore( (state) => ({ isLoggedIn: state.isLoggedIn }) );
+
 return (
     <>
         <div className="bg-white py-16">
@@ -12,14 +17,31 @@ return (
                     Provides you with the latest online learning system and material
                     that help your
                 </p>
-                <div className="flex justify-center space-x-4">
-                    <button className="bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600">
-                        Join as Instructor
-                    </button>
-                    <button className="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700">
-                        Join as Student
-                    </button>
-                </div>
+
+                
+
+                { isLoggedIn ? (
+                    <div className="flex justify-center space-x-4">
+                        <Link to="/courses" >
+                            <button className="bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600">
+                                View Courses
+                            </button>
+                        </Link>
+                    </div>
+                ) : (
+                    <div className="flex justify-center space-x-4">
+                        <Link to="/signup" >
+                            <button className="bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600">
+                                Join as Instructor
+                            </button>
+                        </Link>
+                        <Link to="/signup" >
+                            <button className="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700">
+                                Join as Student
+                            </button>
+                        </Link>
+                    </div>
+                )}
                 <div className="flex justify-center space-x-8 mt-12">
                     <img src={companiesImage} alt="" />
                 </div>

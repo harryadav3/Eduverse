@@ -43,7 +43,7 @@ return (
             {!isLoggedIn && (
                 <Link
                     to="/login"
-                    className=" text-white bg-secondary px-6 py-2 rounded-md hover:bg-purple-700"
+                    className=" text-white bg-secondary px-6 py-2 rounded-md hover:bg-orange-600"
                 >
                     Login
                 </Link>
@@ -51,7 +51,7 @@ return (
             {!isLoggedIn && (
                 <Link
                     to="/signup"
-                    className=" font-bold border-4 border-tertiary text-white px-3 py-1   rounded-md hover:bg-secondary hover:text-white"
+                    className="  border-4 hover:border-orange-600 border-secondary text-white px-3 py-1   rounded-md hover:bg-orange-600 hover:text-white"
                 >
                     Signup
                 </Link>
@@ -60,7 +60,7 @@ return (
                 <Link to="/"> 
                 <button                onClick={logout}
                     
-                    className="text-white bg-secondary px-6 py-2 rounded-md hover:bg-purple-700">
+                    className="text-white bg-secondary px-6 py-2 rounded-md hover:bg-orange-600">
                 
                     Logout
                     </button>

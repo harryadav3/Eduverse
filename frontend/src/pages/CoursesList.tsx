@@ -2,6 +2,7 @@ import CourseCard from '../components/CourseCard';
 import {useEffect, useState} from 'react';
 import api from '../store/api';
 import {useCourseStore} from '../store/store';
+import Loading from '../components/Loading';
 
 interface Course {
   id: number;
@@ -37,7 +38,7 @@ const CoursesList = () => {
   }, [storeCourses]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+   return <Loading/>
   }
 
   if (error) {

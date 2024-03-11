@@ -11,10 +11,10 @@ const TopCategories = () => {
     }
 
     return (
-        <div className="bg-white py-16">
+        <div className=" container bg-white py-16">
             <div className="max-w-7xl  mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl  font-bold mb-8 text-center">Explore Top Categories</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                <h2 className="heading-main mb-8 text-center">Explore Top Categories</h2>
+                <div className="grid grid-cols-2  lg:grid-cols-4 gap-4">
                     {categories.map((category) => (
                         <div key={category.id} className="bg-purple-100 rounded-lg p-4 flex flex-col items-center justify-center">
                             {icons[category.icon]}

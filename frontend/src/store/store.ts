@@ -1,9 +1,8 @@
 import {create} from 'zustand'
 import api from './api';
+import toast from 'react-hot-toast';
 // import { useNavigate } from 'react-router-dom';
 //   import axios from 'axios';
-
-
   // const navigate = useNavigate();
 interface AuthState {
   user: {
@@ -40,8 +39,12 @@ export const useAuthStore = create<AuthState>((set) => ({
       console.log("User and token from the server ", user, token)
       localStorage.setItem('token', token);
       set({ user, token , isLoggedIn : true});
+      
+      toast.success('Logged in successfully', { style : { backgroundColor : "#629c49" , color : "white"} });
+
       // navigate("/home")
     } catch (error) {
+      toast.error('Invalid credentials' , { style : { backgroundColor : "#e34530" , color : "white"} });
       console.error(error);
     }
   },
@@ -49,6 +52,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     console.log(("isnide logoout "))
     localStorage.removeItem('token');
     set({ user: null, token: null, isLoggedIn: false });
+    toast.success('Logged out successfully', { style : { backgroundColor : "#629c49" , color : "white"} });
   },
   signup: async (userData) => {
     try {
@@ -68,8 +72,13 @@ export const useAuthStore = create<AuthState>((set) => ({
         console.log("User and token from the server ", user, token)
         set({ user, token, isLoggedIn: true });
         localStorage.setItem('token', token);
+        toast.success('Signed up successfully', { style : { backgroundColor : "#629c49" , color : "white"} });
+       
+        
+       
       }
     } catch (error) {
+      toast.error('Invalid credentials' , { style : { backgroundColor : "#e34530" , color : "white"} });
       console.log(error);
 
     }

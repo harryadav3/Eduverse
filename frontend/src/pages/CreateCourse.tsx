@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import api from "../store/api";
 // import { reset } from "react-hook-form";
 import { useAuthStore } from "../store/store";
+import toast from "react-hot-toast";
 
 
 type FormData = {
@@ -32,8 +33,10 @@ const onSubmit = async (data: FormData) => {
         const response = await api.post('/courses/create', formattedData);
         console.log(response.data);
         // Clear form inputs
+        toast.success('Course created successfully', { style : { backgroundColor : "#629c49" , color : "white"} });
     reset();
 } catch (err) {
+    toast.error('Invalid credentials' , { style : { backgroundColor : "#e34530" , color : "white"} });
     console.error(err);
 }}
 return (
