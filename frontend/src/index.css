@@ -50,3 +50,7 @@ body, html {
 .heading-main {
   @apply text-4xl font-bold  
 }
+
+.menu-nav-link {
+  @apply mx-4 text-white hover:text-secondary px-4 py-2 rounded-md text-lg  hover:cursor-pointer font-medium
+}
