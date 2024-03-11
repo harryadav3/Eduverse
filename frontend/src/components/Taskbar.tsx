@@ -14,7 +14,7 @@ const Taskbar = () => {
 return (
     <nav className="bg-primary py-3 px-6 flex items-center justify-between">
         <Link to="/" className="nav-link">
-        <div className="h-10 w-56">
+        <div className=" h-8 w-36 lg:h-10 lg:w-56">
             <img className="w-full h-full" src={logo} alt="" />
         </div>
         </Link>

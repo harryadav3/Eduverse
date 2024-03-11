@@ -4,6 +4,8 @@ import imageAdd from "./../assets/course2.png";
 import insADD from "./../assets/ins1.png";
 import { useAuthStore } from "../store/store";
 import api from "../store/api";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 interface CourseCardProps {
   course: {
     id: number;
@@ -22,19 +24,26 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   // {console.log(course)}
   const { user } = useAuthStore((state) => state);
   // const { id, name,  maxSeats = 25, instructorId, duration, category = 'Programming', imageUrl } = course;
-
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAuthStore((state) => state);
   const { id, name,  maxSeats = 25, instructorId, duration, category = 'Programming' } = course;
   
   
   const enrollCourse = async () => {
     try {
       console.log("the data for the user ", user?.id, id)
+
+      if ( !isLoggedIn ) {
+        toast.error('Please signup to enroll ', { style : { backgroundColor : "#e34530" , color : "white"} });
+        navigate("/signup");
+        return ;
+      } 
       const response = await api.post('/leads/register/course', {
         leadId: user?.id, // Add null check for user
         courseId: id,
       });
-
       console.log(response.data);
+     
     } catch (err) {
       console.error(err);
     }

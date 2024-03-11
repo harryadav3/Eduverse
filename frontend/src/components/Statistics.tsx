@@ -3,9 +3,9 @@ import statisticsImage from "./../assets/statistics.svg";
 
 const Statistics = () => {
   return (
-    <div className="bg-tertiary text-white py-16 shadow-md">
-      <div className="max-w-7xl mx-40  px-2 sm:px-6 lg:px-8 flex justify-between gap-20">
-        <img src={statisticsImage} alt="Statistics" className=" w-1/2 h-96 " />
+    <div className="container bg-tertiary text-white py-16 shadow-md">
+      <div className="max-w-full flex flex-col  px-2 sm:px-6 lg:px-4 lg:flex-row justify-between gap-20">
+        <img src={statisticsImage} alt="Statistics" className=" lg:w-1/2 h-96 " />
         <div className="flex flex-col items-start ml-8">
           <h2 className="text-3xl font-bold mb-4">
             The number one factor in relevance drives out resistance.
