@@ -21,6 +21,8 @@ interface AuthState {
 
   signup: (user: { id: number, email: string, name: string, role: string, bio?: string, password: string, imageUrl: string }) => void;
 
+  deleteUser: (role: string, id: number) => void;
+
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -87,7 +89,18 @@ export const useAuthStore = create<AuthState>((set) => ({
       console.log(error);
 
     }
+    
   },
+  deleteUser: async (role, id) => {
+    try {
+      const response = await api.delete(`/auth/delete/${role}/${id}`);
+      console.log(response.data);
+      toast.success('Account deleted successfully', { style : { backgroundColor : "#629c49" , color : "white"} });
+    } catch (error) {
+      toast.error('Failed to delete account' , { style : { backgroundColor : "#e34530" , color : "white"} });
+      console.error(error);
+    }
+  }
 }));
 
 

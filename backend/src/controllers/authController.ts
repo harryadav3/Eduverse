@@ -86,11 +86,15 @@ export const login = async (req: Request, res: Response) => {
     res.status(500).json({ status: 'Failed to authenticate user' , errorMesage: error});
   }
 };
-
 export const deleteUser = async (req: Request, res: Response) => {
   try {
-    const { id } = req.query;
-    const user = await Lead.findByPk(id as string);
+    const { id, role } = req.params;
+    let user;
+    if (role === 'instructor') {
+      user = await Instructor.findByPk(id as string);
+    } else if (role === 'lead') {
+      user = await Lead.findByPk(id as string);
+    }
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
@@ -100,4 +104,3 @@ export const deleteUser = async (req: Request, res: Response) => {
     res.status(500).json({ status: 'Failed to delete user', errorMessage : error });
   }
 }
-

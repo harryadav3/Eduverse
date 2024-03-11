@@ -20,6 +20,8 @@ router.get('/:leadId', leadController.getAllRegisterCourse);
 router.put('/:leadId', leadController.updateLeadStatus);
 
 
+router.delete('/delete/:courseId', leadController.deleteCourse);
+
 // Search leads
 router.get('/search', leadController.searchLeads);
 

@@ -16,5 +16,5 @@ router.post('/register/lead', authController.registerLead);
 
 router.post('/login', authController.login);
 
-router.get('/delete', authController.deleteUser);
+router.delete('/delete/:role/:id', authController.deleteUser);
 export default router;

@@ -42,7 +42,7 @@ const Taskbar = () => {
                 )}
                 {isLoggedIn && (
                     <Link to="/profile" className="nav-link hover:cursor-pointer">
-                        < FaRegCircleUser className="text-2xl" />
+                        <img src={user?.imageUrl} alt={user?.name} className="w-8 h-8 rounded-full" />
                     </Link>
                 )}
                 {!isLoggedIn && (
@@ -100,7 +100,7 @@ const Taskbar = () => {
                         )}
                         {isLoggedIn && (
                             <Link to="/profile" className="menu-nav-link flex gap-4 px-6 hover:cursor-pointer" onClick={toggleMenu}>
-                                <FaRegCircleUser className="text-2xl " /> Profile
+                            <img src={user?.imageUrl} alt={user?.name} className="w-8 h-8 rounded-full" /> Profile
                             </Link>
                         )}
                         {!isLoggedIn && (

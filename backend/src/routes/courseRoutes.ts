@@ -17,4 +17,5 @@ router.post('/create', courseController.createCourse);
 // Update an existing course
 router.put('/:courseId', courseController.updateCourseDetails);
 
+
 export default router;

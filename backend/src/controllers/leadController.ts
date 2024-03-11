@@ -45,6 +45,19 @@ export const registerForCourse = async (req: Request, res: Response) => {
     }
 };
 
+export const deleteCourse = async (req: Request, res: Response) => {
+    try {
+        const { courseId } = req.params;
+        const course = await CourseRegistration.findByPk(courseId);
+        if (!course) {
+            return res.status(404).json({ error: 'Course not found' });
+        }
+        await course.destroy();
+        res.status(200).json({ status: 'Course deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ status: 'Failed to delete course', errorMessage: error });
+    }
+}
 export const getAllRegisterCourse = async (req: Request, res: Response) => {
     try {
         const { leadId } = req.params;

@@ -50,7 +50,7 @@ const CoursesList = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
         {courses.map((course) => (
           // @ts-ignore
-          <CourseCard key={course.id} course={course} />
+          <CourseCard key={course.id} course={course} isBuyed={false} />
         ))}
       </div>
     </div>

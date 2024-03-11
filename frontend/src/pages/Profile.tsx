@@ -1,25 +1,25 @@
-import { log } from 'console';
 import api from '../store/api';
+import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/store'; // replace with your actual path
 
 const Profile = () => {
-    const { user , logout} = useAuthStore((state) => state);
+    const { user, deleteUser } = useAuthStore((state) => state);
+    const navigate = useNavigate();
     const handleDeleteAccount = async () => {
-  try {
-    const response = await api.delete('/auth/delete');
-    console.log(response.data);
-    
-    logout();
-    // Handle successful deletion here
-  } catch (error) {
-    console.error(error);
-    // Handle error here
-  }
-};
+        try {
+            deleteUser(user?.role || '', user?.id || 0);
+            navigate("/");
+            
+
+        } catch (error) {
+            console.error(error);
+            // Handle error here
+        }
+    };
 
     return (
         <div className="flex justify-center h-screen  bg-gray-200">
-            <div className="bg-white rounded-lg shadow-lg w-full md:w-1/2 h-3/4 lg:w-1/3  overflow-hidden mx-3 my-10">
+            <div className="bg-white rounded-lg shadow-lg w-full md:w-1/2 h-3/4 lg:w-1/3  overflow-hidden mx-1 my-10">
                 <div className="p-6 items-center  justify-center">
                     <div className="text-center">            
                         {
@@ -38,7 +38,7 @@ const Profile = () => {
                             alt={user?.name || 'Profile'}
                         />
                     </div>
-                    <div className="mt-4 mx-4 md:mx-24 flex flex-col justify-start items-start space-y-4">
+                    <div className="mt-4 mx-4 flex flex-col justify-start items-start space-y-4">
                         <div className="flex justify-start items-center space-x-4">
                             <h2 className="text-sm md:text-lg font-bold text-gray-500">Name:</h2>
                             <p className="text-md md:text-xl">{user?.name || 'John Doe'}</p>
