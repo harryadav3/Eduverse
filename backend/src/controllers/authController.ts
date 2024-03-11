@@ -16,7 +16,11 @@ export const registerInstructor = async (req: Request, res: Response) => {
     const instructor = await Instructor.create({ name, email, password, bio, imageUrl });
     const token = jwt.sign({ userId: instructor.id, role: 'instructor' }, jwtSecret, { expiresIn: '30d' });
     res.status(201).json({ status : "successful", user: {
-      name,email, imageUrl,  role: 'instructor'
+      id: instructor.id,
+      name: instructor.name,
+      email: instructor.email,
+      // imageUrl: user.imageUrl,
+      role: 'instructor'
     }, token });
   } catch (error) {
     res.status(500).json({ status: 'error', message: 'Failed to register instructor', errorMessage : error });
@@ -29,7 +33,16 @@ export const registerLead = async (req: Request, res: Response) => {
 
     const lead = await Lead.create({ name, email, password, phoneNumber, imageUrl, status });
     const token = jwt.sign({ userId: lead.id, role: 'lead' }, jwtSecret, { expiresIn: '30d' });
-    res.status(201).json({ status: "successful", user: {   name, email, imageUrl,  role: 'lead' }, token });
+    res.status(201).json({ status: "successful",   user: {
+      id: lead.id,
+      name: lead.name,
+      email: lead.email,
+      imageUrl: lead.imageUrl,
+       status: lead.status,
+      role: 'lead'
+    },
+    token  
+  });
   } catch (error) {
     res.status(500).json({ status: 'error', message: 'Failed to register lead', errorMessage : error });
   }
@@ -63,7 +76,7 @@ export const login = async (req: Request, res: Response) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        // imageUrl: user.imageUrl,
+        imageUrl: user.imageUrl,
          status: (user as Lead).status,
         role: role
       },
@@ -73,3 +86,18 @@ export const login = async (req: Request, res: Response) => {
     res.status(500).json({ status: 'Failed to authenticate user' , errorMesage: error});
   }
 };
+
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.query;
+    const user = await Lead.findByPk(id as string);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    await user.destroy();
+    res.status(204).json({ status: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ status: 'Failed to delete user', errorMessage : error });
+  }
+}
+

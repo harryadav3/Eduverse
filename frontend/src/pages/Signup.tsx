@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/store';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 type FormData = {
     role: string;
     name: string;
@@ -28,7 +29,7 @@ const Signup = () => {
 
     useEffect(() => {
         if(isLoggedIn) {
-            navigate('/');
+            navigate('/login');
         }
     }
     ,[isLoggedIn]);

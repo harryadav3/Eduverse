@@ -31,7 +31,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   
   const enrollCourse = async () => {
     try {
-      console.log("the data for the user ", user?.id, id)
+      console.log("the data for the in course compoen user ", user?.id, id)
 
       if ( !isLoggedIn ) {
         toast.error('Please signup to enroll ', { style : { backgroundColor : "#e34530" , color : "white"} });

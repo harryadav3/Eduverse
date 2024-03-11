@@ -1,9 +1,8 @@
 import {create} from 'zustand'
 import api from './api';
 import toast from 'react-hot-toast';
-// import { useNavigate } from 'react-router-dom';
+
 //   import axios from 'axios';
-  // const navigate = useNavigate();
 interface AuthState {
   user: {
     id: number;
@@ -36,9 +35,12 @@ export const useAuthStore = create<AuthState>((set) => ({
       const response = await api.post('/auth/login', userData);
       const { user, token } = response.data as { user: any, token: string };
 
-      console.log("User and token from the server ", user, token)
+      console.log("User from the server ", user)
+
+        console.log("user from lgoin ", user.name , user.email)
       localStorage.setItem('token', token);
       set({ user, token , isLoggedIn : true});
+        console.log("AFter settign  from login ", user.name , user.email)
       
       toast.success('Logged in successfully', { style : { backgroundColor : "#629c49" , color : "white"} });
 
@@ -58,6 +60,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       let response;
 
+
       if (userData.role === 'instructor') {
         const { id, role, ...userDataWithoutIdAndRole } = userData;
         response = await api.post('auth/register/instructor', userDataWithoutIdAndRole);
@@ -69,12 +72,14 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (response) {
         console.log("Response from the server ", response.data)
         const { user, token } = response.data as { user: any, token: string };
-        console.log("User and token from the server ", user, token)
+        console.log("User the server ", user)
+        console.log("user from singup ", user.name , user.email)
         set({ user, token, isLoggedIn: true });
+        console.log("After seetiign  from singup ", user.name , user.email)
         localStorage.setItem('token', token);
         toast.success('Signed up successfully', { style : { backgroundColor : "#629c49" , color : "white"} });
        
-        
+
        
       }
     } catch (error) {

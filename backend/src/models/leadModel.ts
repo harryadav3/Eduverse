@@ -11,6 +11,7 @@ class Lead extends Model {
   public linkedInProfile!: string;
   public status!: string;
   public courseId!: number;
+  public imageUrl!: string;
 
   public async comparePassword(password: string): Promise<boolean> {
     return bcrypt.compare(password, this.password);

@@ -8,6 +8,7 @@ class Instructor extends Model {
   public email!: string;
   public password!: string;
   public bio!: string;
+  public imageUrl!: string;
 
   public async comparePassword(password: string): Promise<boolean> {
     return bcrypt.compare(password, this.password);

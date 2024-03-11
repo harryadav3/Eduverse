@@ -21,20 +21,19 @@ return (
                     that help your
                 </p>
                 
-                <div className="flex  justify-around py-2 lg:gap-96 absolute w-full  left-0 top-44 lg:top-40">
-                    
-                 <img src={instructorImage} alt="" className="w-12  lg:w-28  mx-auto" />
-               
-               
-                <img src={studentImage} alt="" className="lg:w-28 w-12 mx-auto" />
               
-                </div>
+                    
+                 <img src={instructorImage} alt="" className=" lg:top-48 top-44 left-10  lg:left-36 absolute w-12  lg:w-28  mx-auto" />
+               
+               
+                <img src={studentImage} alt="" className="lg:top-48 top-44 right-10 lg:right-36 absolute lg:w-28 w-12 mx-auto" />
+              
 
 
                 { isLoggedIn ? (
                     <div className="flex justify-center space-x-4">
                         <Link to="/courses" >
-                            <button className="bg-orange-500 text-white lg:px-6 lg:py-3 rounded-full hover:bg-orange-600">
+                            <button className="bg-orange-500 text-white px-3 py-2 lg:px-6 lg:py-3 rounded-full hover:bg-orange-600">
                                 View Courses
                             </button>
                         </Link>
