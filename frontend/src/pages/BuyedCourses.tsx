@@ -18,13 +18,14 @@ const BuyedCourses = () => {
         if (buyedCourses === null) {
             return;
         }
+        // console.log("userid",user?.id)
         const fetchBuyedCourses = async () => {
             try {
                 setloading(true)
                 const response = await api.get(`/leads/${user?.id}`);
                 const modifiedData = response.data.map((course: any) => ({
                     ...course,
-                    instructor: course.Instructor.name,
+                    instructor: course.Instructor ? course.Instructor.name : 'Unknown',
                 }));
                 setBuyedCourses(modifiedData);
                 // console.log(modifiedData);

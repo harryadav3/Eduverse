@@ -12,11 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.searchLeads = exports.updateLeadStatus = exports.getAllRegisterCourse = exports.registerForCourse = exports.getAllLeads = void 0;
+exports.searchLeads = exports.updateLeadStatus = exports.getAllRegisterCourse = exports.deleteCourse = exports.registerForCourse = exports.getAllLeads = void 0;
 const leadModel_1 = __importDefault(require("../models/leadModel"));
 const sequelize_1 = require("sequelize");
 const courseModel_1 = __importDefault(require("../models/courseModel"));
 const courseRegistration_1 = __importDefault(require("./../models/courseRegistration"));
+const instructorModel_1 = __importDefault(require("../models/instructorModel"));
 const getAllLeads = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const leads = yield leadModel_1.default.findAll();
@@ -53,13 +54,36 @@ const registerForCourse = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.registerForCourse = registerForCourse;
+const deleteCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { courseId } = req.params;
+        const course = yield courseRegistration_1.default.findByPk(courseId);
+        if (!course) {
+            return res.status(404).json({ error: 'Course not found' });
+        }
+        yield course.destroy();
+        res.status(200).json({ status: 'Course deleted successfully' });
+    }
+    catch (error) {
+        res.status(500).json({ status: 'Failed to delete course', errorMessage: error });
+    }
+});
+exports.deleteCourse = deleteCourse;
 const getAllRegisterCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { leadId } = req.params;
         const registerCourse = yield courseRegistration_1.default.findAll({
             where: { leadId },
         });
-        res.status(200).json(registerCourse);
+        const courseIds = registerCourse.map((course) => course.courseId);
+        const courses = yield courseModel_1.default.findAll({
+            where: { id: courseIds },
+            include: {
+                model: instructorModel_1.default,
+                attributes: ['name'],
+            },
+        });
+        res.status(200).json(courses);
     }
     catch (error) {
         res.status(500).json({ status: "Failed to fetch register course", errorMessage: error });

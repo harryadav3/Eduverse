@@ -35,12 +35,13 @@ export const useAuthStore = create<AuthState>((set) => ({
   login: async (userData) => {
     try {
       const response = await api.post('/auth/login', userData);
+      console.log(response.data);
       const { user, token } = response.data as { user: any, token: string };
 
 
       localStorage.setItem('token', token);
       set({ user, token , isLoggedIn : true});
-        // console.log("AFter settign  from login ", user.name , user.email)
+        console.log("AFter settign  from login ", user)
       
       toast.success('Logged in successfully', { style : { backgroundColor : "#629c49" , color : "white"} });
 

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.registerLead = exports.registerInstructor = void 0;
+exports.deleteUser = exports.login = exports.registerLead = exports.registerInstructor = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const instructorModel_1 = __importDefault(require("../models/instructorModel"));
 const leadModel_1 = __importDefault(require("../models/leadModel"));
@@ -26,7 +26,11 @@ const registerInstructor = (req, res) => __awaiter(void 0, void 0, void 0, funct
         const instructor = yield instructorModel_1.default.create({ name, email, password, bio, imageUrl });
         const token = jsonwebtoken_1.default.sign({ userId: instructor.id, role: 'instructor' }, jwtSecret, { expiresIn: '30d' });
         res.status(201).json({ status: "successful", user: {
-                name, email, imageUrl, role: 'instructor'
+                id: instructor.id,
+                name: instructor.name,
+                email: instructor.email,
+                // imageUrl: user.imageUrl,
+                role: 'instructor'
             }, token });
     }
     catch (error) {
@@ -39,7 +43,16 @@ const registerLead = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const { name, email, password, phoneNumber, imageUrl, status = 'Waitlist' } = req.body;
         const lead = yield leadModel_1.default.create({ name, email, password, phoneNumber, imageUrl, status });
         const token = jsonwebtoken_1.default.sign({ userId: lead.id, role: 'lead' }, jwtSecret, { expiresIn: '30d' });
-        res.status(201).json({ status: "successful", user: { name, email, imageUrl, role: 'lead' }, token });
+        res.status(201).json({ status: "successful", user: {
+                id: lead.id,
+                name: lead.name,
+                email: lead.email,
+                imageUrl: lead.imageUrl,
+                status: lead.status,
+                role: 'lead'
+            },
+            token
+        });
     }
     catch (error) {
         res.status(500).json({ status: 'error', message: 'Failed to register lead', errorMessage: error });
@@ -70,7 +83,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 id: user.id,
                 name: user.name,
                 email: user.email,
-                // imageUrl: user.imageUrl,
+                imageUrl: user.imageUrl,
                 status: user.status,
                 role: role
             },
@@ -82,3 +95,24 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.login = login;
+const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id, role } = req.params;
+        let user;
+        if (role === 'instructor') {
+            user = yield instructorModel_1.default.findByPk(id);
+        }
+        else if (role === 'lead') {
+            user = yield leadModel_1.default.findByPk(id);
+        }
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        yield user.destroy();
+        res.status(204).json({ status: 'User deleted successfully' });
+    }
+    catch (error) {
+        res.status(500).json({ status: 'Failed to delete user', errorMessage: error });
+    }
+});
+exports.deleteUser = deleteUser;

@@ -19,7 +19,7 @@ export const getAllCourses = async (req: Request, res: Response) => {
 };
 
 
-// 
+
 
 export const getCourseById = async (req: Request, res: Response) => {
     try {
@@ -39,6 +39,7 @@ export const getCourseById = async (req: Request, res: Response) => {
 export const createCourse = async (req: Request, res: Response) => {
     try {
         const { name, maxSeats, startDate, instructorId, duration, category, imageUrl } = req.body;
+      
         const course = await Course.create({ name, maxSeats, startDate, instructorId, duration, category, imageUrl });
         res.status(201).json(course);
     } catch (error) {

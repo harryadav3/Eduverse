@@ -39,6 +39,7 @@ router.post('/register/course', leadController.registerForCourse);
 router.get('/:leadId', leadController.getAllRegisterCourse);
 // Update lead status
 router.put('/:leadId', leadController.updateLeadStatus);
+router.delete('/delete/:courseId', leadController.deleteCourse);
 // Search leads
 router.get('/search', leadController.searchLeads);
 exports.default = router;

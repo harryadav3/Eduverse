@@ -14,20 +14,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateCourseDetails = exports.createCourse = exports.getCourseById = exports.getAllCourses = void 0;
 const courseModel_1 = __importDefault(require("../models/courseModel"));
+const instructorModel_1 = __importDefault(require("../models/instructorModel"));
 // ...
 // Get all courses
 const getAllCourses = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const courses = yield courseModel_1.default.findAll();
+        const courses = yield courseModel_1.default.findAll({
+            include: [{
+                    model: instructorModel_1.default,
+                    attributes: ['name']
+                }]
+        });
         res.status(200).json(courses);
     }
     catch (error) {
-        res.status(500).json({ status: 'Failed to fetch courses',
-            errorMessage: error });
+        res.status(500).json({ status: 'Failed to fetch courses', errorMessage: error });
     }
 });
 exports.getAllCourses = getAllCourses;
-// 
 const getCourseById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { courseId } = req.params;

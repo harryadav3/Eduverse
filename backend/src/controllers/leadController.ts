@@ -3,7 +3,7 @@ import Lead from '../models/leadModel';
 import { Op } from 'sequelize';
 import Course from '../models/courseModel';
 import CourseRegistration from "./../models/courseRegistration";
-
+import Instructor from '../models/instructorModel';
 
 export const getAllLeads = async (req: Request, res: Response) => {
     try {
@@ -65,12 +65,19 @@ export const getAllRegisterCourse = async (req: Request, res: Response) => {
         const registerCourse = await CourseRegistration.findAll({
             where: { leadId },
         });
-        res.status(200).json(registerCourse);
+        const courseIds = registerCourse.map((course) => course.courseId);
+        const courses = await Course.findAll({
+            where: { id: courseIds },
+            include: {
+                model: Instructor,
+                attributes: ['name'],
+            },
+        });
+        res.status(200).json(courses);
     } catch (error) {
         res.status(500).json({ status: "Failed to fetch register course", errorMessage: error });
     }
 }
-
 
 export const updateLeadStatus = async (req: Request, res: Response) => {
     try {
@@ -88,10 +95,6 @@ export const updateLeadStatus = async (req: Request, res: Response) => {
         if (numberOfAffectedRows === 0) {
             return res.status(404).json({ error: 'Lead not found' });
         }
-
-
-
-
         
         const updatedLead = affectedRows[0];
         res.status(200).json(updatedLead);

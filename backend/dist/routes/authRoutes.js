@@ -35,4 +35,5 @@ router.post('/register/instructor', authController.registerInstructor);
 router.post('/register/lead', authController.registerLead);
 // Login
 router.post('/login', authController.login);
+router.delete('/delete/:role/:id', authController.deleteUser);
 exports.default = router;

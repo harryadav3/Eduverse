@@ -77,7 +77,7 @@ export const login = async (req: Request, res: Response) => {
         name: user.name,
         email: user.email,
         imageUrl: user.imageUrl,
-         status: (user as Lead).status,
+        status: (user as Lead).status,
         role: role
       },
       token  

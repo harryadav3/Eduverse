@@ -25,16 +25,22 @@ const CoursesList = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await api.get('/courses');
+        const response = await api.get("/courses");
+        console.log(response.data);
+        setCourses(
+          response.data.map((course: any) => ({
+            ...course,
+            instructor: course.Instructor ? course.Instructor.name : 'Unknown',
+          }))
+        );
+        console.log(response.data);
 
-        setCourses(response.data.map((course: any) => ({
-          ...course,
-          instructor: course.Instructor.name,
-        })));
         storeCourses(response.data);
+        console.log(response.data);
         setIsLoading(false);
       } catch (error) {
-        setError('Error fetching courses');
+        console.error("Error fetching courses", error);
+        setError("Error fetching courses");
         setIsLoading(false);
       }
     };
@@ -43,7 +49,7 @@ const CoursesList = () => {
   }, [storeCourses]);
 
   if (isLoading) {
-   return <Loading/>
+    return <Loading />;
   }
 
   if (error) {
