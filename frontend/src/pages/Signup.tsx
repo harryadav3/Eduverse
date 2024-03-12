@@ -23,7 +23,7 @@ const Signup = () => {
 
     const onSubmit = (data: FormData) => {
         signup({ ...data, id: 0 }); // Pass a second argument to the signup function
-        console.log("inside tthe sinpu form teh ", data);
+        // console.log("inside tthe sinpu form teh ", data);
     };
 
     useEffect(() => {

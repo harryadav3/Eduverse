@@ -40,7 +40,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       localStorage.setItem('token', token);
       set({ user, token , isLoggedIn : true});
-        console.log("AFter settign  from login ", user.name , user.email)
+        // console.log("AFter settign  from login ", user.name , user.email)
       
       toast.success('Logged in successfully', { style : { backgroundColor : "#629c49" , color : "white"} });
 
@@ -60,6 +60,8 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       let response;
 
+      console.log("User data from the signup ", userData)
+
 
       if (userData.role === 'instructor') {
         const { id, role, ...userDataWithoutIdAndRole } = userData;
@@ -70,11 +72,11 @@ export const useAuthStore = create<AuthState>((set) => ({
       }
 
       if (response) {
-        console.log("Response from the server ", response.data)
+        // console.log("Response from the server ", response.data)
         const { user, token } = response.data as { user: any, token: string };
         
         set({ user, token, isLoggedIn: true });
-        console.log("After seetiign  from singup ", user.name , user.email)
+        // console.log("After seetiign  from singup ", user.name , user.email)
         localStorage.setItem('token', token);
         toast.success('Signed up successfully', { style : { backgroundColor : "#629c49" , color : "white"} });
        

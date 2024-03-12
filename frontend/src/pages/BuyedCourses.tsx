@@ -18,13 +18,16 @@ const BuyedCourses = () => {
         if (buyedCourses === null) {
             return;
         }
-
-        console.log("this is form buyed coures ", user?.id)
         const fetchBuyedCourses = async () => {
             try {
                 setloading(true)
-                const response = await api.get(`/leads/${user?.id}` );
-                setBuyedCourses(response.data);
+                const response = await api.get(`/leads/${user?.id}`);
+                const modifiedData = response.data.map((course: any) => ({
+                    ...course,
+                    instructor: course.Instructor.name,
+                }));
+                setBuyedCourses(modifiedData);
+                // console.log(modifiedData);
             } catch (error) {
                 console.error('Error fetching bought courses', error);
             }

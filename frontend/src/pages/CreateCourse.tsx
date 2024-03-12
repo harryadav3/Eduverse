@@ -25,11 +25,12 @@ const userId = useAuthStore( (state) => state.user?.id);
 
 const onSubmit = async (data: FormData) => {
     try {
+        console.log("userid form crate coures " , userId)
         const formattedData = {
             ...data,
             instructorId: userId
         };
-        console.log("the data for the user ", data);
+        console.log("Formatted data ", formattedData);
         const response = await api.post('/courses/create', formattedData);
         console.log(response.data);
         // Clear form inputs
@@ -115,6 +116,7 @@ return (
                         <input
                             id="imageUrl"
                             type="text"
+                            maxLength={240}
                             required
                             className="form-input"
                             placeholder="Image URL"

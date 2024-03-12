@@ -13,6 +13,7 @@ type FormData = {
 const Login = () => {
   const { register, handleSubmit } = useForm<FormData>();
     // const login  = useAuthStore((state) => state.login);
+    
     const navigate = useNavigate();
     const { login , isLoggedIn } = useAuthStore((state) => ({
         login: state.login, isLoggedIn: state.isLoggedIn 
@@ -20,7 +21,7 @@ const Login = () => {
 
 const onSubmit = (data: FormData) => {
     login({ ...data, id: 0 }, ""); // Pass a second argument to the login function
-    console.log("From login : " , data);
+    // console.log("From login : " , data);
 };
 
 useEffect (() => {

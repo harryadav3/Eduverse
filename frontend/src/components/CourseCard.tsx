@@ -26,12 +26,12 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, isBuyed }) => {
   const { user } = useAuthStore((state) => state);
   const navigate = useNavigate();
   const { isLoggedIn } = useAuthStore((state) => state);
-  const { id, name, maxSeats = 25,  duration, imageUrl = {imageAdd},  category = 'Programming', instructor } = course;
+  const { id, name, maxSeats = 25,  duration, imageUrl = {imageAdd},  category = 'Programming' , instructor} = course;
 
 
   const enrollCourse = async () => {
     try {
-      console.log("the data for the in course compoen user ", user?.id, id);
+      // console.log("the data for the in course compoen user ", user?.id, id);
 
       if (!isLoggedIn) {
         toast.error('Please signup to enroll ', { style: { backgroundColor: "#e34530", color: "white" } });
