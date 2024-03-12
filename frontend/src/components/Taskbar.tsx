@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import {  FaBars, FaTimes } from "react-icons/fa";
-import { FaRegCircleUser } from 'react-icons/fa6';
 import { useAuthStore } from "../store/store";
 
 const Taskbar = () => {

@@ -1,4 +1,3 @@
-import api from '../store/api';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/store'; // replace with your actual path
 

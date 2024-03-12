@@ -3,7 +3,6 @@ import {useEffect, useState} from 'react';
 import api from '../store/api';
 import {useCourseStore} from '../store/store';
 import Loading from '../components/Loading';
-import { clearLine } from 'readline';
 
 interface Course {
   id: number;
