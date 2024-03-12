@@ -58,20 +58,9 @@ cd course-management
 Set up the environment:
 bash
 
-```
-# Build and start the Docker containers
-docker-compose up -d
-```
-
-# Run database migrations and seed initial data
-erver
-docker-compose exec backend npm start
-
-
 # Run tests
 Frontend
-bash
-Copy code
+
 # Install dependencies
 cd frontend
 npm install
