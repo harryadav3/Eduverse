@@ -1,20 +1,22 @@
 import { Request, Response } from 'express';
 import  Course  from '../models/courseModel';
-
+import  Instructor  from '../models/instructorModel';
 // ...
-
 // Get all courses
 export const getAllCourses = async (req: Request, res: Response) => {
     try {
-        const courses = await Course.findAll();
+        const courses = await Course.findAll({
+            include: [{
+                model: Instructor,
+                attributes: ['name']
+            }]
+        });
         res.status(200).json(courses);
 
     } catch (error) {
-        res.status(500).json({ status: 'Failed to fetch courses',
-    errorMessage: error });
+        res.status(500).json({ status: 'Failed to fetch courses', errorMessage: error });
     }
 };
-
 
 
 // 

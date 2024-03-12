@@ -37,9 +37,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       const response = await api.post('/auth/login', userData);
       const { user, token } = response.data as { user: any, token: string };
 
-      console.log("User from the server ", user)
 
-        console.log("user from lgoin ", user.name , user.email)
       localStorage.setItem('token', token);
       set({ user, token , isLoggedIn : true});
         console.log("AFter settign  from login ", user.name , user.email)
@@ -74,8 +72,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (response) {
         console.log("Response from the server ", response.data)
         const { user, token } = response.data as { user: any, token: string };
-        console.log("User the server ", user)
-        console.log("user from singup ", user.name , user.email)
+        
         set({ user, token, isLoggedIn: true });
         console.log("After seetiign  from singup ", user.name , user.email)
         localStorage.setItem('token', token);
@@ -113,6 +110,7 @@ interface Course {
   category: string;
   image: string;
   instructorid: number;
+  instructor: string;
 }
 
 interface CourseState {

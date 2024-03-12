@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import api from '../store/api';
 import {useCourseStore} from '../store/store';
 import Loading from '../components/Loading';
+import { clearLine } from 'readline';
 
 interface Course {
   id: number;
@@ -12,6 +13,7 @@ interface Course {
   category: string;
   imageUrl: string;
   instructorid: number;
+  instructor: string;
 }
 
 const CoursesList = () => {
@@ -25,7 +27,11 @@ const CoursesList = () => {
     const fetchCourses = async () => {
       try {
         const response = await api.get('/courses');
-        setCourses(response.data);
+
+        setCourses(response.data.map((course: any) => ({
+          ...course,
+          instructor: course.Instructor.name,
+        })));
         storeCourses(response.data);
         setIsLoading(false);
       } catch (error) {

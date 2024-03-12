@@ -58,6 +58,7 @@ export const deleteCourse = async (req: Request, res: Response) => {
         res.status(500).json({ status: 'Failed to delete course', errorMessage: error });
     }
 }
+
 export const getAllRegisterCourse = async (req: Request, res: Response) => {
     try {
         const { leadId } = req.params;

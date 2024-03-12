@@ -17,6 +17,7 @@ interface CourseCardProps {
     duration: string;
     category: string;
     imageUrl: string;
+    instructor: string;
   };
   isBuyed: boolean; // Add a new prop to determine if the course is bought or not
 }
@@ -25,7 +26,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, isBuyed }) => {
   const { user } = useAuthStore((state) => state);
   const navigate = useNavigate();
   const { isLoggedIn } = useAuthStore((state) => state);
-  const { id, name, maxSeats = 25, instructorId, duration, category = 'Programming' } = course;
+  const { id, name, maxSeats = 25,  duration, imageUrl = {imageAdd},  category = 'Programming', instructor } = course;
+
 
   const enrollCourse = async () => {
     try {
@@ -49,7 +51,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, isBuyed }) => {
 
   return (
     <div className="bg-white rounded-lg max-w-80 shadow-lg overflow-hidden h-auto">
-      <img src={imageAdd} alt={name} className="w-full h-48 object-cover" />
+      <img src={imageUrl.toString()} alt={name} className="w-full h-48 object-cover" />
       <div className="px-6 py-4">
         <div className="flex justify-between items-center mb-2">
           <div className="flex items-center">
@@ -69,7 +71,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, isBuyed }) => {
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center">
             <img src={insADD} alt="instructor iamge" className="mr-2 rounded-full w-8 h-8" />
-            <span className=" italic">{instructorId}</span>
+            <span className=" italic">{instructor}</span>
           </div>
           <span className="bg-blue-200 text-xs text-blue-700 px-2 py -1 rounded-full">{category}</span>
         </div>
